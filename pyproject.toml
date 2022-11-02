@@ -19,4 +19,5 @@ build-backend = "pdm.pep517.api"
 [tool.pdm.dev-dependencies]
 dev = [
     "pre-commit>=2.20.0",
+    "mypy>=0.982",
 ]
