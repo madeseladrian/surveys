@@ -1,21 +1,9 @@
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from inspect import isabstract
 import pytest
-from typing import TypedDict
 from unittest.mock import patch
 
-class AddAccountParams(TypedDict):
-  name: str
-  email: str
-  password: str
-
-@dataclass
-class AddAccount(ABC):
-
-  @abstractmethod
-  def add(self, account: AddAccountParams) -> bool:
-    raise NotImplementedError('Should implement method: add')
+from src.domain.params import AddAccountParams
+from src.domain.usecases import AddAccount
 
 class TestAddAccount:
   def test_1_should_AddAccount_is_an_abstract_class(self):
