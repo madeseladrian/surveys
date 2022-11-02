@@ -1,12 +1,13 @@
 from faker import Faker
 from typing import Tuple
+from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
 from src.domain.usecases import AddAccount
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
-from src.presentation.helpers import bad_request, forbidden
+from src.presentation.helpers import bad_request, forbidden, HttpResponse, server_error
 
 from tests.presentation.mocks import AddAccountSpy, ValidationSpy
 
@@ -53,7 +54,7 @@ class TestSignUpController:
   def test_3_return_400_if_Validation_returns_an_error(self):
     sut, _, validation_spy = self.make_sut()
     validation_spy.error = MissingParamError(self.faker.word())
-    httpResponse = sut.handle(self.params)
+    httpResponse: HttpResponse = sut.handle(self.params)
 
     assert httpResponse == bad_request(validation_spy.error)
 
@@ -63,3 +64,12 @@ class TestSignUpController:
     httpResponse = sut.handle(self.params)
 
     assert httpResponse == forbidden(EmailInUseError())
+
+  @patch('tests.presentation.mocks.ValidationSpy.validate')
+  def test_5_return_500_if_Validation_throws(self, mocker):
+    sut, _, _ = self.make_sut()
+    exception = Exception()
+    mocker.side_effect = exception
+    httpResponse = sut.handle(request=self.params)
+
+    assert httpResponse == server_error(error=exception)
