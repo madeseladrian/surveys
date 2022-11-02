@@ -7,7 +7,7 @@ from src.domain.usecases import AddAccount
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
-from src.presentation.helpers import bad_request, forbidden, HttpResponse, server_error
+from src.presentation.helpers import bad_request, forbidden, server_error
 
 from tests.presentation.mocks import AddAccountSpy, ValidationSpy
 
@@ -37,14 +37,14 @@ class TestSignUpController:
 
   def test_1_should_call_Validation_with_correct_values(self):
     sut, _, validation_spy = self.make_sut()
-    request: AddAccountParams = self.params
+    request = self.params
     sut.handle(request=request)
 
     assert validation_spy.value == request
 
   def test_2_call_AddAccount_with_correct_values(self):
     sut, add_account_spy, _ = self.make_sut()
-    request: AddAccountParams = self.params
+    request = self.params
     sut.handle(request=request)
 
     assert add_account_spy.params == request
@@ -54,7 +54,7 @@ class TestSignUpController:
   def test_3_return_400_if_Validation_returns_an_error(self):
     sut, _, validation_spy = self.make_sut()
     validation_spy.error = MissingParamError(self.faker.word())
-    httpResponse: HttpResponse = sut.handle(self.params)
+    httpResponse = sut.handle(self.params)
 
     assert httpResponse == bad_request(validation_spy.error)
 
@@ -67,6 +67,15 @@ class TestSignUpController:
 
   @patch('tests.presentation.mocks.ValidationSpy.validate')
   def test_5_return_500_if_Validation_throws(self, mocker):
+    sut, _, _ = self.make_sut()
+    exception = Exception()
+    mocker.side_effect = exception
+    httpResponse = sut.handle(request=self.params)
+
+    assert httpResponse == server_error(error=exception)
+
+  @patch('tests.presentation.mocks.AddAccountSpy.add')
+  def test_6_return_500_if_AddAccount_throws(self, mocker):
     sut, _, _ = self.make_sut()
     exception = Exception()
     mocker.side_effect = exception
