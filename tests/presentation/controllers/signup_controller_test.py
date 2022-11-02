@@ -5,8 +5,8 @@ from src.domain.params import AddAccountParams
 from src.domain.usecases import AddAccount
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
-from src.presentation.errors import MissingParamError
-from src.presentation.helpers import bad_request
+from src.presentation.errors import EmailInUseError, MissingParamError
+from src.presentation.helpers import bad_request, forbidden
 
 from tests.presentation.mocks import AddAccountSpy, ValidationSpy
 
@@ -56,3 +56,10 @@ class TestSignUpController:
     httpResponse = sut.handle(self.params)
 
     assert httpResponse == bad_request(validation_spy.error)
+
+  def test_4_return_403_if_AddAccount_returns_false(self):
+    sut, add_account_spy, _ = self.make_sut()
+    add_account_spy.result = False
+    httpResponse = sut.handle(self.params)
+
+    assert httpResponse == forbidden(EmailInUseError())
