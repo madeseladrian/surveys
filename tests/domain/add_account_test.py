@@ -33,3 +33,11 @@ class TestAddAccount:
     with pytest.raises(NotImplementedError) as exc_info:
       addAccount.add(account=params)
     assert exc_info.value.args[0] == 'Should implement method: add'
+
+  @patch.multiple(AddAccount, __abstractmethods__=set())
+  def test_3_should_AddAccount_return_True_when_compare_objects(self):
+    addAccount_1 = AddAccount()
+    addAccount_2 = AddAccount()
+
+    assert addAccount_1.__eq__
+    assert addAccount_1 == addAccount_2
