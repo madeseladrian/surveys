@@ -1,0 +1,18 @@
+[flake8]
+ignore=
+  # 2 blank lines
+  E302
+  # 2 blank lines after class or function definition
+  E305
+  # indentation is not a multiple of 4
+  E111
+  # indentation is not a multiple of 4 (comment)
+  E114
+  # continuation line under-indented for hanging indent
+  E121
+  # line too long (84 > 79 characters)
+  E501
+  
+# imported but unused
+per-file-ignores =
+    __init__.py: F401

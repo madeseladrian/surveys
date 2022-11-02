@@ -6,6 +6,12 @@ repos:
         files: ^src/
         args: []
 
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 5.0.4
+    hooks:
+    - id: flake8
+      language: python 
+
 -   repo: local
     hooks:      
       - id: requirements
