@@ -5,6 +5,8 @@ from src.domain.params import AddAccountParams
 from src.domain.usecases import AddAccount
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
+from src.presentation.errors import MissingParamError
+from src.presentation.helpers import bad_request
 
 from tests.presentation.mocks import AddAccountSpy, ValidationSpy
 
@@ -45,3 +47,12 @@ class TestSignUpController:
     sut.handle(request=request)
 
     assert add_account_spy.params == request
+
+  # Exceptions Tests
+
+  def test_3_return_400_if_Validation_returns_an_error(self):
+    sut, _, validation_spy = self.make_sut()
+    validation_spy.error = MissingParamError(self.faker.word())
+    httpResponse = sut.handle(self.params)
+
+    assert httpResponse == bad_request(validation_spy.error)
