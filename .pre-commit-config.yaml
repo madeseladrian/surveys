@@ -13,7 +13,23 @@ repos:
       language: python 
 
 -   repo: local
-    hooks:      
+    hooks:    
+      # - id: pytest-check
+      #   name: pytest-check
+      #   entry: pytest
+      #   language: system
+      #   pass_filenames: false
+      #   always_run: true
+      #   stages: [commit]
+
+      - id: pytest-coverage
+        name: pytest-coverage
+        entry: bash -c 'pytest --cov --cov-report=html; git add .'
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
+        
       - id: requirements
         name: requirements
         entry: bash -c 'pip freeze > requirements.txt; git add requirements.txt'
