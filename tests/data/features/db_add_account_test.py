@@ -107,3 +107,11 @@ class TestDbAddAccount:
 
     with pytest.raises(Exception):
       sut.add(self.params)
+
+  @patch('tests.data.mocks.AddAccountRepositorySpy.add')
+  def test_9_return_an_error_if_AddAccountRepository_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.add(self.params)
