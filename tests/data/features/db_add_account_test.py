@@ -46,6 +46,8 @@ class TestDbAddAccount:
       hasher_spy
     )
 
+  # Success Tests
+
   def test_1_should_call_CheckAccountByEmailRepository_with_correct_email(self):
     sut, _, check_account_by_email_repository_spy, _ = self.make_sut()
     sut.add(self.params)
@@ -71,3 +73,12 @@ class TestDbAddAccount:
 
     assert add_account_repository_spy.params == self.params
     assert is_valid
+
+  # Exceptions Tests
+
+  def test_5_should_return_false_if_CheckAccoutByEmailRepository_returns_true(self):
+    sut, _, check_account_by_email_repository_spy, _ = self.make_sut()
+    check_account_by_email_repository_spy.result = True
+    is_valid = sut.add(self.params)
+
+    assert not is_valid
