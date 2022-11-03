@@ -9,7 +9,7 @@ from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
 from src.presentation.helpers import bad_request, forbidden, server_error
 
-from tests.presentation.mocks import AddAccountSpy, ValidationSpy
+from ..mocks import AddAccountSpy, ValidationSpy
 
 class TestSignUpController:
   # SetUp
