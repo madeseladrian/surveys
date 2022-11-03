@@ -57,12 +57,11 @@ O objetivo é criar APIs com uma arquitetura bem definida e desacoplada, utiliza
 * Type Hints
 * Git
 * Docker
-* PostgreSQL
+* MongoDB
 * Faker
 * Pre-Commit
 * MyPy
 * Flake8
-* Pydocstring
 * Coverage
 * Pytest
 * Bcrypt
