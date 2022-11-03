@@ -3,12 +3,17 @@ from src.infra import BCryptAdapter
 
 class TestBCryptAdapter:
 
-  def make_sut(self) -> BCryptAdapter:
-    return BCryptAdapter()
+  bcryptAdapter = BCryptAdapter()
 
   @patch('src.infra.BCryptAdapter.hash')
   def test_1_should_call_hash_with_correct_value(self, mocker):
-    sut = self.make_sut()
-    sut.hash('any_value')
+    self.bcryptAdapter.hash('any_value')
 
     mocker.assert_called_once_with('any_value')
+
+  @patch('src.infra.BCryptAdapter.hash')
+  def test_2_should_return_a_valid_hash_on_hash_success(self, mocker):
+    mocker.return_value = 'hashed'
+    hashed_password = self.bcryptAdapter.hash('any_value')
+
+    assert hashed_password == 'hashed'
