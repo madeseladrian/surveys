@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from src.data.contracts.db import AddAccountRepository
 
-class TestController:
+class TestAddAccountRepository:
   def test_1_should_AddAccountRepository_is_an_abstract_class(self):
     assert isabstract(AddAccountRepository)
 
