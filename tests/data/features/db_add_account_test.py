@@ -99,3 +99,11 @@ class TestDbAddAccount:
 
     with pytest.raises(Exception):
       sut.add(self.params)
+
+  @patch('tests.data.mocks.HasherSpy.hash')
+  def test_8_return_an_error_if_Hasher_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.add(self.params)
