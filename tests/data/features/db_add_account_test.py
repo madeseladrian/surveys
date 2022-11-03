@@ -1,5 +1,7 @@
 from faker import Faker
+import pytest
 from typing import Tuple
+from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
 from src.domain.usecases import AddAccount
@@ -89,3 +91,11 @@ class TestDbAddAccount:
     is_valid = sut.add(self.params)
 
     assert not is_valid
+
+  @patch('tests.data.mocks.CheckAccountByEmailRepositorySpy.check_by_email')
+  def test_7_return_an_error_if_CheckAccountByEmailRepository_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.add(self.params)

@@ -11,6 +11,6 @@
 
 5. ✅ Retorna **False** se o **email** está cadastrado
 6. ✅ Retorna **False** caso a conta não seja criada com sucesso
-7. ❌ Retorna erro se der erro ao tentar validar o email
+7. ✅ Retorna erro se der erro ao tentar validar o email
 8. ❌ Retorna erro se der erro ao tentar encriptar a senha
 9. ❌ Retorna erro se der erro ao tentar criar a conta
