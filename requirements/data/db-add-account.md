@@ -4,7 +4,7 @@
 
 1. ✅ **Chamar** o método com o **email** correto
 2. ✅ **Verifica** se o **email** não está cadastrado
-3. ❌ **Criptografar** o **password** chamando o **Hasher**
+3. ✅ **Criptografar** o **password** chamando o **Hasher**
 4. ❌ Retorna **True** caso a conta seja criada com sucesso
 
 > ### Exceções
