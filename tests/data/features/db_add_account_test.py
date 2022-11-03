@@ -5,7 +5,11 @@ from src.domain.params import AddAccountParams
 from src.domain.usecases import AddAccount
 from src.data.features import DbAddAccount
 
-from ..mocks import CheckAccountByEmailRepositorySpy, HasherSpy
+from ..mocks import (
+  AddAccountRepositorySpy,
+  CheckAccountByEmailRepositorySpy,
+  HasherSpy
+)
 
 class TestDbAddAccount:
   # SetUp
@@ -21,33 +25,49 @@ class TestDbAddAccount:
 
   SutTypes = Tuple[
     AddAccount,
+    AddAccountRepositorySpy,
     CheckAccountByEmailRepositorySpy,
     HasherSpy
   ]
 
   def make_sut(self) -> SutTypes:
+    add_account_repository_spy = AddAccountRepositorySpy()
     check_account_by_email_repository_spy = CheckAccountByEmailRepositorySpy()
     hasher_spy = HasherSpy()
     sut: AddAccount = DbAddAccount(
+      add_account_repository=add_account_repository_spy,
       check_account_by_email_repository=check_account_by_email_repository_spy,
       hasher=hasher_spy
     )
-    return sut, check_account_by_email_repository_spy, hasher_spy
+    return (
+      sut,
+      add_account_repository_spy,
+      check_account_by_email_repository_spy,
+      hasher_spy
+    )
 
   def test_1_should_call_CheckAccountByEmailRepository_with_correct_email(self):
-    sut, check_account_by_email_repository_spy, _ = self.make_sut()
+    sut, _, check_account_by_email_repository_spy, _ = self.make_sut()
     sut.add(self.params)
 
     assert check_account_by_email_repository_spy.email == self.params['email']
 
   def test_2_should_return_true_if_CheckAccountByEmailRepository_returns_false(self):
-    sut, _, _ = self.make_sut()
+    sut, _, _, _ = self.make_sut()
     is_valid = sut.add(self.params)
 
     assert is_valid
 
   def test_3_should_call_Hasher_with_correct_plaintext(self):
-    sut, _, hasher_spy = self.make_sut()
+    sut, _, _, hasher_spy = self.make_sut()
     sut.add(self.params)
 
     assert hasher_spy.plaintext == self.params['password']
+
+  def test_4_should_call_AddAccountRepository_with_correct_values(self):
+    sut, add_account_repository_spy, _, hasher_spy = self.make_sut()
+    self.params['password'] = hasher_spy.digest
+    is_valid = sut.add(self.params)
+
+    assert add_account_repository_spy.params == self.params
+    assert is_valid
