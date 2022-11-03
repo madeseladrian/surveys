@@ -13,4 +13,4 @@ class TestHasher:
     hasher = Hasher()
 
     with pytest.raises(NotImplementedError, match='Should implement method: hash'):
-      hasher.hash(plaintext='')
+      hasher.hash(password='')

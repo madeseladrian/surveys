@@ -5,7 +5,9 @@ description = "Aplicativo de Pesquisas"
 authors = [
     {name = "mades eladrian", email = "mades.eladrian@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "passlib[bcrypt]>=1.7.4",
+]
 requires-python = ">=3.10"
 license = {text = "MIT"}
 [project.optional-dependencies]

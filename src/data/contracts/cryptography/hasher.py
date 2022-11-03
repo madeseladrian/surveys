@@ -5,5 +5,5 @@ from dataclasses import dataclass
 class Hasher(ABC):
 
   @abstractmethod
-  def hash(self, plaintext: str) -> str:
+  def hash(self, password: str) -> str:
     raise NotImplementedError('Should implement method: hash')
