@@ -13,15 +13,20 @@ class TestBCryptAdapter:
 
     mocker.assert_called_once_with('any_value')
 
+  def test_2_should_return_a_string_on_hash_success(self):
+    hashed_password = self.bcryptAdapter.hash('any_value')
+
+    assert isinstance(hashed_password, str)
+
   @patch('src.infra.cryptography.BCryptAdapter.hash')
-  def test_2_should_return_a_valid_hash_on_hash_success(self, mocker):
+  def test_3_should_return_a_valid_hash_on_hash_success(self, mocker):
     mocker.return_value = 'hashed'
     hashed_password = self.bcryptAdapter.hash('any_value')
 
     assert hashed_password == 'hashed'
 
   @patch('src.infra.cryptography.BCryptAdapter.hash')
-  def test_3_should_throw_if_hash_throws(self, mocker):
+  def test_4_should_throw_if_hash_throws(self, mocker):
     mocker.side_effect = Exception
 
     with pytest.raises(Exception):

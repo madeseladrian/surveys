@@ -1,2 +1,1 @@
 from .account_mongo_repository import AccountMongoRepository
-from .mongo_helper import MongoHelper
