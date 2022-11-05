@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from ...domain.usecases import AddAccount
+from ...domain.features import AddAccount
 from ..contracts import Controller, Validation
 from ..errors import EmailInUseError
 from ..helpers import bad_request, forbidden, server_error

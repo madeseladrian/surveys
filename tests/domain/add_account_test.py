@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
-from src.domain.usecases import AddAccount
+from src.domain.features import AddAccount
 
 class TestAddAccount:
   def test_1_should_AddAccount_is_an_abstract_class(self):

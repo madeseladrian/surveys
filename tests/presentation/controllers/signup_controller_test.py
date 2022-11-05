@@ -3,25 +3,19 @@ from typing import Tuple
 from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
-from src.domain.usecases import AddAccount
+from src.domain.features import AddAccount
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
 from src.presentation.helpers import bad_request, forbidden, server_error
 
+from ...domain.mocks import mock_add_account_params
 from ..mocks import AddAccountSpy, ValidationSpy
 
 class TestSignUpController:
   # SetUp
   faker = Faker()
-  name: str = faker.name()
-  email: str = faker.email()
-  password: str = faker.password()
-  params: AddAccountParams = AddAccountParams(
-    name=name,
-    email=email,
-    password=password
-  )
+  params: AddAccountParams = mock_add_account_params()
 
   SutTypes = Tuple[Controller, AddAccount, Validation]
 

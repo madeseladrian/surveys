@@ -1,4 +1,4 @@
-from src.domain.usecases import AddAccount
+from src.domain.features import AddAccount
 from src.domain.params import AddAccountParams
 
 class AddAccountSpy(AddAccount):

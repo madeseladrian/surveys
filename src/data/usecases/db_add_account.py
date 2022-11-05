@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from ...domain.usecases import AddAccount
+from ...domain.features import AddAccount
 from ...domain.params import AddAccountParams
 from ..contracts.cryptography import Hasher
 from ..contracts.db import AddAccountRepository, CheckAccountByEmailRepository

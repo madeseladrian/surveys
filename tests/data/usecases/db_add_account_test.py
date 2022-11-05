@@ -1,12 +1,12 @@
-from faker import Faker
 import pytest
 from typing import Tuple
 from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
-from src.domain.usecases import AddAccount
-from src.data.features import DbAddAccount
+from src.domain.features import AddAccount
+from src.data.usecases import DbAddAccount
 
+from ...domain.mocks import mock_add_account_params
 from ..mocks import (
   AddAccountRepositorySpy,
   CheckAccountByEmailRepositorySpy,
@@ -15,15 +15,7 @@ from ..mocks import (
 
 class TestDbAddAccount:
   # SetUp
-  faker = Faker()
-  name: str = faker.name()
-  email: str = faker.email()
-  password: str = faker.password()
-  params: AddAccountParams = AddAccountParams(
-    name=name,
-    email=email,
-    password=password
-  )
+  params: AddAccountParams = mock_add_account_params()
 
   SutTypes = Tuple[
     AddAccount,
