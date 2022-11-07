@@ -10,4 +10,5 @@ class RequiredFieldValidation(Validation):
   fieldName: str
 
   def validate(self, value: Any) -> Optional[Error]:
-    return MissingParamError(paramName=self.fieldName)
+    return None if value.get(self.fieldName) \
+      else MissingParamError(paramName=self.fieldName)
