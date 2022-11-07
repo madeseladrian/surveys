@@ -63,6 +63,16 @@ requires_python = ">=3.6,<4.0"
 summary = "DNS toolkit"
 
 [[package]]
+name = "email-validator"
+version = "1.3.0"
+requires_python = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+summary = "A robust email address syntax and deliverability validation library."
+dependencies = [
+    "dnspython>=1.15.0",
+    "idna>=2.0.0",
+]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.0.0"
 requires_python = ">=3.7"
@@ -391,7 +401,7 @@ dependencies = [
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:26c25629ee86cf9b9a9cad8fcc278873bff0ce86b1e73eb83e02e38b97963656"
+content_hash = "sha256:7c0056ffeea4f56b9b9e4aac902f231cdd3b582ca7a7b3e9160f03efb1c11196"
 
 [metadata.files]
 "attrs 22.1.0" = [
@@ -496,6 +506,10 @@ content_hash = "sha256:26c25629ee86cf9b9a9cad8fcc278873bff0ce86b1e73eb83e02e38b9
 "dnspython 2.2.1" = [
     {url = "https://files.pythonhosted.org/packages/99/fb/e7cd35bba24295ad41abfdff30f6b4c271fd6ac70d20132fa503c3e768e0/dnspython-2.2.1.tar.gz", hash = "sha256:0f7569a4a6ff151958b64304071d370daa3243d15941a7beedf0c9fe5105603e"},
     {url = "https://files.pythonhosted.org/packages/9b/ed/28fb14146c7033ba0e89decd92a4fa16b0b69b84471e2deab3cc4337cc35/dnspython-2.2.1-py3-none-any.whl", hash = "sha256:a851e51367fb93e9e1361732c1d60dab63eff98712e503ea7d92e6eccb109b4f"},
+]
+"email-validator 1.3.0" = [
+    {url = "https://files.pythonhosted.org/packages/74/44/8c131647fe3c9afdca92abc4a7fe981df55710f142df3aae0ab658258316/email_validator-1.3.0.tar.gz", hash = "sha256:553a66f8be2ec2dea641ae1d3f29017ab89e9d603d4a25cdaac39eefa283d769"},
+    {url = "https://files.pythonhosted.org/packages/e7/d3/88997ca4903c70fb6eec2e29501a35f84aaf34790f207febdf188e374377/email_validator-1.3.0-py2.py3-none-any.whl", hash = "sha256:816073f2a7cffef786b29928f58ec16cdac42710a53bb18aa94317e3e145ec5c"},
 ]
 "exceptiongroup 1.0.0" = [
     {url = "https://files.pythonhosted.org/packages/4f/7e/eca80dbb5c10ec12ffb50884f52ecbff653cb5f443b0529244a748f114da/exceptiongroup-1.0.0.tar.gz", hash = "sha256:affbabf13fb6e98988c38d9c5650e701569fe3c1de3233cfb61c5f33774690ad"},
