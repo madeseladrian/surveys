@@ -6,7 +6,6 @@ from ..contracts import Controller, Validation
 from ..errors import EmailInUseError
 from ..helpers import bad_request, forbidden, server_error
 from ..params import SignUpControllerRequest
-
 @dataclass
 class SignUpController(Controller):
   add_account: AddAccount

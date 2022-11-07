@@ -1,1 +1,2 @@
+from .compare_fields_validation import CompareFieldsValidation
 from .validation_composite import ValidationComposite
