@@ -3,7 +3,7 @@ from shutil import Error
 
 @dataclass
 class MissingParamError(Error):
-  paramName: str
+  param_name: str
 
   def __post_init__(self):
-    super().__init__(f'Missing param: {self.paramName}')
+    super().__init__(f'Missing param: {self.param_name}')

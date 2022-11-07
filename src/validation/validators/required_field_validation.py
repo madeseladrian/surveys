@@ -7,8 +7,8 @@ from ...presentation.errors import MissingParamError
 
 @dataclass
 class RequiredFieldValidation(Validation):
-  fieldName: str
+  field_name: str
 
   def validate(self, value: Any) -> Optional[Error]:
-    return None if value.get(self.fieldName) \
-      else MissingParamError(paramName=self.fieldName)
+    return None if value.get(self.field_name) \
+      else MissingParamError(param_name=self.field_name)

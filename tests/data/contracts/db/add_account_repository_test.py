@@ -10,7 +10,7 @@ class TestAddAccountRepository:
 
   @patch.multiple(AddAccountRepository, __abstractmethods__=set())
   def test_2_should_AddAccountRepository_raise_a_NotImplementedError_if_not_implemented(self):
-    addAccountRepository = AddAccountRepository()
+    add_account_repository = AddAccountRepository()
 
     with pytest.raises(NotImplementedError, match='Should implement method: add'):
-      addAccountRepository.add(data={})
+      add_account_repository.add(data={})

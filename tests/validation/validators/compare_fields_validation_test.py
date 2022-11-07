@@ -5,30 +5,30 @@ from src.validation.validators import CompareFieldsValidation
 class TestCompareFieldsValidation:
   # SetUp
   faker = Faker()
-  fieldName: str = faker.word()
-  fieldToCompareName: str = faker.word()
+  field_name: str = faker.word()
+  field_to_compare_name: str = faker.word()
 
   def make_sut(self) -> CompareFieldsValidation:
     return CompareFieldsValidation(
-      fieldName=self.fieldName,
-      fieldToCompareName=self.fieldToCompareName
+      field_name=self.field_name,
+      field_to_compare_name=self.field_to_compare_name
     )
 
   def test_1_should_return_an_InvalidParamError_if_validation_fails(self):
     sut = self.make_sut()
     error = sut.validate({
-      self.fieldName: 'any_field',
-      self.fieldToCompareName: 'other_field'
+      self.field_name: 'any_field',
+      self.field_to_compare_name: 'other_field'
     })
 
-    assert error == InvalidParamError(self.fieldToCompareName)
+    assert error == InvalidParamError(self.field_to_compare_name)
 
   def test_2_should_return_None_if_validation_succeds(self):
     sut = self.make_sut()
     value = self.faker.word()
     error = sut.validate({
-      self.fieldName: value,
-      self.fieldToCompareName: value
+      self.field_name: value,
+      self.field_to_compare_name: value
     })
 
     assert error is None

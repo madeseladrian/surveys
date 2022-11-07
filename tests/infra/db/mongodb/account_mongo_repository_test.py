@@ -13,9 +13,9 @@ class TestAccountMongoRepository:
   mock_mongo_client: MongoClient = mongomock.MongoClient()
 
   def make_sut(self) -> AccountMongoRepository:
-    accountMongoRepository = AccountMongoRepository()
-    accountMongoRepository.client = self.mock_mongo_client
-    return accountMongoRepository
+    account_mongo_repository = AccountMongoRepository()
+    account_mongo_repository.client = self.mock_mongo_client
+    return account_mongo_repository
 
   @pytest.fixture
   def insert_one(self):
@@ -29,9 +29,9 @@ class TestAccountMongoRepository:
 
   def test_1_should_return_an_account_on_success(self, clear_db):
     sut = self.make_sut()
-    isValid = sut.add(dict(self.params))
+    is_valid = sut.add(dict(self.params))
 
-    assert isValid
+    assert is_valid
 
   def test_2_should_return_true_if_email_is_valid(self, clear_db, insert_one):
     sut = self.make_sut()

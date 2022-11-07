@@ -4,6 +4,7 @@ from unittest.mock import patch
 
 from src.domain.params import AddAccountParams
 from src.domain.features import AddAccount
+
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
@@ -48,31 +49,31 @@ class TestSignUpController:
   def test_5_return_400_if_Validation_returns_an_error(self):
     sut, _, validation_spy = self.make_sut()
     validation_spy.error = MissingParamError(self.faker.word())
-    httpResponse = sut.handle(self.params)
+    http_response = sut.handle(self.params)
 
-    assert httpResponse == bad_request(validation_spy.error)
+    assert http_response == bad_request(validation_spy.error)
 
   def test_6_return_403_if_AddAccount_returns_false(self):
     sut, add_account_spy, _ = self.make_sut()
     add_account_spy.result = False
-    httpResponse = sut.handle(self.params)
+    http_response = sut.handle(self.params)
 
-    assert httpResponse == forbidden(EmailInUseError())
+    assert http_response == forbidden(EmailInUseError())
 
   @patch('tests.presentation.mocks.ValidationSpy.validate')
   def test_7_return_500_if_Validation_throws(self, mocker):
     sut, _, _ = self.make_sut()
     exception = Exception()
     mocker.side_effect = exception
-    httpResponse = sut.handle(request=self.params)
+    http_response = sut.handle(request=self.params)
 
-    assert httpResponse == server_error(error=exception)
+    assert http_response == server_error(error=exception)
 
   @patch('tests.presentation.mocks.AddAccountSpy.add')
   def test_8_return_500_if_AddAccount_throws(self, mocker):
     sut, _, _ = self.make_sut()
     exception = Exception()
     mocker.side_effect = exception
-    httpResponse = sut.handle(request=self.params)
+    http_response = sut.handle(request=self.params)
 
-    assert httpResponse == server_error(error=exception)
+    assert http_response == server_error(error=exception)
