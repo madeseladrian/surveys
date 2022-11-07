@@ -11,4 +11,6 @@ class CompareFieldsValidation(Validation):
   fieldToCompareName: str
 
   def validate(self, value: Any) -> Optional[Error]:
-    return InvalidParamError(paramName=self.fieldToCompareName)
+    if value[self.fieldName] != value[self.fieldToCompareName]:
+      return InvalidParamError(paramName=self.fieldToCompareName)
+    return None
