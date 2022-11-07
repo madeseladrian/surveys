@@ -10,5 +10,5 @@ class EmailValidatorAdapter(EmailValidator):
     try:
       validation = validate_email(email=email, check_deliverability=True)
       return validation.email == email
-    finally:
+    except Exception:
       return False
