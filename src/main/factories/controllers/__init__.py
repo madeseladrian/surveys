@@ -1,0 +1,1 @@
+from .signup_controller_factory import make_signup_controller

@@ -1,5 +1,10 @@
+from typing import Any
+
 from ..errors import ServerError
 from .http_response import HttpResponse
+
+def add_account(data: Any) -> HttpResponse:
+  return HttpResponse(status_code=201, body=data)
 
 def bad_request(error: Exception) -> HttpResponse:
   return HttpResponse(status_code=400, body=error)
