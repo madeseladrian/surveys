@@ -1,7 +1,6 @@
 from pydantic import BaseSettings
 from pymongo import MongoClient
 
-
 class Settings(BaseSettings):
   database_hostname: str
   database_port: str
