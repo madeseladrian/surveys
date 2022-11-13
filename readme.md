@@ -100,6 +100,6 @@ O objetivo é criar APIs com uma arquitetura bem definida e desacoplada, utiliza
 * Spies
 * Fakes
 
-> ## Features do PostgreSQL
+> ## Features do MongoDB
 
 * Add
