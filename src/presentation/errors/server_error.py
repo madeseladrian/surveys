@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 from typing import Any
-from shutil import Error
 
 @dataclass
-class ServerError(Error):
+class ServerError(Exception):
   error: Any = None
   stack: Any = None
 

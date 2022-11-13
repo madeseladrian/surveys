@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from shutil import Error
 
 @dataclass
-class InvalidParamError(Error):
+class InvalidParamError(Exception):
   param_name: str
 
   def __post_init__(self):
