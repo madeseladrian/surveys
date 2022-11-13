@@ -13,4 +13,4 @@ def forbidden(error: Exception) -> HttpResponse:
   return HttpResponse(status_code=403, body=error)
 
 def server_error(error: Exception) -> HttpResponse:
-  return HttpResponse(status_code=500, body=ServerError(error=error))
+  return HttpResponse(status_code=500, body=ServerError(stack=error))
