@@ -3,6 +3,7 @@ from typing import Any
 
 from ...presentation.helpers import HttpResponse
 
+
 def route_response_adapter(http_response: HttpResponse) -> Any:
   status_code: int = http_response['status_code']
 
