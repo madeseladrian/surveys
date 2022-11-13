@@ -51,7 +51,7 @@ class TestRouteResponseAdapter:
 
   def test_5_should_adapter_return_any_error(self):
     http_response: HttpResponse = {
-      'status_code': 418,
+      'status_code': 422,
       'body': 'Server Error'
     }
     with pytest.raises(HTTPException) as excinfo:
