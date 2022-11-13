@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from ...domain.features import AddAccount
 from ...domain.params import AddAccountParams, AddAccountResult
 from ..contracts.cryptography import Hasher
-from ..contracts.db import AddAccountRepository, CheckAccountByEmailRepository
+from ..contracts.db.account import AddAccountRepository, CheckAccountByEmailRepository
 
 @dataclass
 class DbAddAccount(AddAccount):

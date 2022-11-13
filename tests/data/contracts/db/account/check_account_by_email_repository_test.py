@@ -2,7 +2,7 @@ from inspect import isabstract
 import pytest
 from unittest.mock import patch
 
-from src.data.contracts.db import CheckAccountByEmailRepository
+from data.contracts.db.account import CheckAccountByEmailRepository
 
 class TestCheckAccountByEmailRepository:
   def test_1_should_CheckAccountByEmailRepository_is_an_abstract_class(self):

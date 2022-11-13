@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ...params import AddAccountRepositoryParams, AddAccountRepositoryResult
+from ....params import AddAccountRepositoryParams, AddAccountRepositoryResult
 
 class AddAccountRepository(ABC):
 

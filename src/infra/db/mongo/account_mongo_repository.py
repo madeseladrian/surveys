@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pymongo import MongoClient
 from pymongo.collection import Collection
 
-from ....data.contracts.db import AddAccountRepository, CheckAccountByEmailRepository
+from ....data.contracts.db.account import AddAccountRepository, CheckAccountByEmailRepository
 from ....data.params import AddAccountRepositoryParams, AddAccountRepositoryResult
 
 

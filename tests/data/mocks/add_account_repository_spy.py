@@ -1,4 +1,4 @@
-from src.data.contracts.db import AddAccountRepository
+from data.contracts.db.account import AddAccountRepository
 from src.data.params import AddAccountRepositoryParams
 
 class AddAccountRepositorySpy(AddAccountRepository):

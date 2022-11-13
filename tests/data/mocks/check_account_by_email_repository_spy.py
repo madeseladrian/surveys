@@ -1,4 +1,4 @@
-from src.data.contracts.db import CheckAccountByEmailRepository
+from data.contracts.db.account import CheckAccountByEmailRepository
 
 class CheckAccountByEmailRepositorySpy(CheckAccountByEmailRepository):
   email: str
