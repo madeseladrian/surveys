@@ -36,3 +36,15 @@ class TestRouteResponseAdapter:
     assert isinstance(excinfo.value, HTTPException)
     assert excinfo.value.status_code == 403
     assert excinfo.value.detail == 'Forbidden Error'
+
+  def test_4_should_adapter_return_a_server_error(self):
+    http_response: HttpResponse = {
+      'status_code': 500,
+      'body': 'Server Error'
+    }
+    with pytest.raises(HTTPException) as excinfo:
+      route_response_adapter(http_response)
+
+    assert isinstance(excinfo.value, HTTPException)
+    assert excinfo.value.status_code == 500
+    assert excinfo.value.detail == 'Server Error'
