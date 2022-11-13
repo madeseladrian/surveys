@@ -1,7 +1,7 @@
 import mongomock
 
 from src.domain.params import AddAccountParams
-from src.infra.db.mongo import AccountMongoRepository
+from src.infra.db.mongodb import AccountMongoRepository
 
 from ....domain.mocks import mock_add_account_params
 
