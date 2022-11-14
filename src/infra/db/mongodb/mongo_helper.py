@@ -10,9 +10,6 @@ class MongoHelper:
   def connect(self, client: MongoClient) -> None:
     self.client = client
 
-  def server(self) -> None:
-    return self.client.server_info()
-
   def get_collection(self, database: str, collection: str) -> Collection:
     return self.client[database][collection]
 
