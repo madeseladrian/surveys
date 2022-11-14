@@ -6,7 +6,7 @@ from src.domain.features import Authentication
 
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import LoginController
-from src.presentation.helpers import bad_request, ok
+from src.presentation.helpers import bad_request, ok, unauthorized
 from src.presentation.errors import MissingParamError
 
 from ...domain.mocks import mock_authentication_params
@@ -57,4 +57,13 @@ class TestAuthenticationController:
     validation_spy.error = MissingParamError(self.faker.word())
     http_response = sut.handle(self.params)
 
+    assert http_response['status_code'] == 400
     assert http_response == bad_request(validation_spy.error)
+
+  def test_5_should_return_401_if_invalid_credentials_are_provided(self):
+    sut, add_account_spy, _ = self.make_sut()
+    add_account_spy.result = None
+    http_response = sut.handle(self.params)
+
+    assert http_response['status_code'] == 401
+    assert http_response == unauthorized()

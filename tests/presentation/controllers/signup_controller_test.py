@@ -58,6 +58,7 @@ class TestSignUpController:
     validation_spy.error = MissingParamError(self.faker.word())
     http_response = sut.handle(self.params)
 
+    assert http_response['status_code'] == 400
     assert http_response == bad_request(validation_spy.error)
 
   def test_5_should_return_403_if_AddAccount_returns_false(self):
@@ -65,6 +66,7 @@ class TestSignUpController:
     add_account_spy.result = False
     http_response = sut.handle(self.params)
 
+    assert http_response['status_code'] == 403
     assert http_response == forbidden(EmailInUseError())
 
   @patch('tests.presentation.mocks.ValidationSpy.validate')
@@ -74,6 +76,7 @@ class TestSignUpController:
     mocker.side_effect = exception
     http_response = sut.handle(request=self.params)
 
+    assert http_response['status_code'] == 500
     assert http_response == server_error(error=exception)
 
   @patch('tests.presentation.mocks.AddAccountSpy.add')
@@ -83,4 +86,5 @@ class TestSignUpController:
     mocker.side_effect = exception
     http_response = sut.handle(request=self.params)
 
+    assert http_response['status_code'] == 500
     assert http_response == server_error(error=exception)
