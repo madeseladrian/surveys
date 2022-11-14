@@ -54,13 +54,36 @@ class TestDbAddAccount:
 
     assert is_valid
 
-  def test_3_should_call_Hasher_with_correct_plaintext(self):
+  def test_3_should_return_false_if_CheckAccoutByEmailRepository_returns_true(self):
+    sut, _, check_account_by_email_repository_spy, _ = self.make_sut()
+    check_account_by_email_repository_spy.result = True
+    is_valid = sut.add(self.params)
+
+    assert not is_valid
+
+  @patch('tests.data.mocks.CheckAccountByEmailRepositorySpy.check_by_email')
+  def test_4_return_an_error_if_CheckAccountByEmailRepository_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.add(self.params)
+
+  def test_5_should_call_Hasher_with_correct_plaintext(self):
     sut, _, _, hasher_spy = self.make_sut()
     sut.add(self.params)
 
     assert hasher_spy.plaintext == self.params['password']
 
-  def test_4_should_call_AddAccountRepository_with_correct_values(self):
+  @patch('tests.data.mocks.HasherSpy.hash')
+  def test_6_return_an_error_if_Hasher_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.add(self.params)
+
+  def test_7_should_call_AddAccountRepository_with_correct_values(self):
     sut, add_account_repository_spy, _, hasher_spy = self.make_sut()
     self.params['password'] = hasher_spy.digest
     is_valid = sut.add(self.params)
@@ -68,37 +91,12 @@ class TestDbAddAccount:
     assert add_account_repository_spy.params == self.params
     assert is_valid
 
-  # Exceptions Tests
-
-  def test_5_should_return_false_if_CheckAccoutByEmailRepository_returns_true(self):
-    sut, _, check_account_by_email_repository_spy, _ = self.make_sut()
-    check_account_by_email_repository_spy.result = True
-    is_valid = sut.add(self.params)
-
-    assert not is_valid
-
-  def test_6_should_return_false_if_AddAccountRepository_returns_false(self):
+  def test_8_should_return_false_if_AddAccountRepository_returns_false(self):
     sut, add_account_repository_spy, _, _ = self.make_sut()
     add_account_repository_spy.result = False
     is_valid = sut.add(self.params)
 
     assert not is_valid
-
-  @patch('tests.data.mocks.CheckAccountByEmailRepositorySpy.check_by_email')
-  def test_7_return_an_error_if_CheckAccountByEmailRepository_throws(self, mocker):
-    sut, _, _, _ = self.make_sut()
-    mocker.side_effect = Exception
-
-    with pytest.raises(Exception):
-      sut.add(self.params)
-
-  @patch('tests.data.mocks.HasherSpy.hash')
-  def test_8_return_an_error_if_Hasher_throws(self, mocker):
-    sut, _, _, _ = self.make_sut()
-    mocker.side_effect = Exception
-
-    with pytest.raises(Exception):
-      sut.add(self.params)
 
   @patch('tests.data.mocks.AddAccountRepositorySpy.add')
   def test_9_return_an_error_if_AddAccountRepository_throws(self, mocker):
