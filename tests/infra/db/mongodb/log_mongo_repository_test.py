@@ -14,7 +14,7 @@ class TestLogMongoRepository:
     error = self.faker.word()
     sut = self.make_sut()
     sut.client = mongomock.MongoClient()
-    sut.log_error(stack=error)
+    sut.log_error(error=error)
 
     count = sut.client.surveys.errors.count_documents({})
     log = sut.client.surveys.errors.find_one({})

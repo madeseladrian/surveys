@@ -13,4 +13,4 @@ class TestAddAccount:
     log_error_repository: LogErrorRepository = LogErrorRepository()
 
     with pytest.raises(NotImplementedError, match='Should implement method: log_error'):
-      log_error_repository.log_error(stack='any error')
+      log_error_repository.log_error(error='any error')

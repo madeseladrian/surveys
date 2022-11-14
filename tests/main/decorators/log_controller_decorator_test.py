@@ -45,4 +45,4 @@ class TestLogControllerDecorator:
     log_controller_spy.http_response = server_error
     sut.handle(self.request)
 
-    assert log_error_repository_spy.stack == server_error['body'].stack
+    assert log_error_repository_spy.error == server_error['body'].error

@@ -23,7 +23,6 @@ class SignUpController(Controller):
     try:
       if error := self.validation.validate(request):
         return bad_request(error)
-
       if is_valid := self.add_account.add(AddAccountParams(
         name=request['name'],
         email=request['email'],
@@ -32,5 +31,5 @@ class SignUpController(Controller):
         return add_account(data=is_valid)
       return forbidden(EmailInUseError())
 
-    except Exception as error:
-      return server_error(error)
+    except Exception as e:
+      return server_error(e)

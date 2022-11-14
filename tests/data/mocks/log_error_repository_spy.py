@@ -3,7 +3,7 @@ from src.data.contracts.db.log import LogErrorRepository
 
 @dataclass
 class LogErrorRepositorySpy(LogErrorRepository):
-  stack: str = None
+  error: str = None
 
-  def log_error(self, stack: str) -> None:
-    self.stack = stack
+  def log_error(self, error: str) -> None:
+    self.error = error
