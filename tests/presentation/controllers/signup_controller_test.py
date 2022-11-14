@@ -48,6 +48,7 @@ class TestSignUpController:
     sut, add_account_spy, _ = self.make_sut()
     http_response = sut.handle(request=self.params)
 
+    assert http_response['status_code'] == 201
     assert http_response == add_account(add_account_spy.result)
 
   # Exceptions Tests

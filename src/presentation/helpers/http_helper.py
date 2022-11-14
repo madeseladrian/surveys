@@ -3,6 +3,10 @@ from typing import Any
 from ..errors import ServerError
 from .http_response import HttpResponse
 
+
+def ok(data: Any) -> HttpResponse:
+  return HttpResponse(status_code=200, body=data)
+
 def add_account(data: Any) -> HttpResponse:
   return HttpResponse(status_code=201, body=data)
 

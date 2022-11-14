@@ -6,6 +6,7 @@ from src.domain.features import Authentication
 
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import LoginController
+from src.presentation.helpers import ok
 
 from ...domain.mocks import mock_authentication_params
 from ..mocks import AuthenticationSpy, ValidationSpy
@@ -40,3 +41,10 @@ class TestAuthenticationController:
     sut.handle(request=request)
 
     assert authentication_spy.params == request
+
+  def test_3_should_return_200_if_valid_data_is_provided(self):
+    sut, authentication_spy, _ = self.make_sut()
+    http_response = sut.handle(request=self.params)
+
+    assert http_response['status_code'] == 200
+    assert http_response == ok(authentication_spy.result)
