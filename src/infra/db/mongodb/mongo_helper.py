@@ -1,6 +1,19 @@
+from dataclasses import dataclass
 from pymongo import MongoClient
 from pymongo.collection import Collection
 
 
-def get_collection(client: MongoClient, name: str) -> Collection:
-  return client['surveys'][name]
+@dataclass
+class MongoHelper:
+  client: MongoClient = None
+
+  def connect(self, client: MongoClient) -> None:
+    self.client = client
+
+  def server(self) -> None:
+    return self.client.server_info()
+
+  def get_collection(self, database: str, collection: str) -> Collection:
+    return self.client[database][collection]
+
+mongohelper = MongoHelper()

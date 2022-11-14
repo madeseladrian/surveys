@@ -1,10 +1,8 @@
-from fastapi import APIRouter, Depends, status
-from pymongo import MongoClient
+from fastapi import APIRouter, status
 
 from ...presentation.params import SignUpControllerRequest
 
 from ..adapters import route_response_adapter
-from ..config.database import get_db
 from ..docs import responses
 from ..factories.controllers import signup_controller_factory
 from ..models import SignUpResponseModel
@@ -21,7 +19,7 @@ router = APIRouter(
   status_code=status.HTTP_201_CREATED,
   response_model=SignUpResponseModel
 )
-def create_user(request: SignUpControllerRequest, client: MongoClient = Depends(get_db)):
-  controller = signup_controller_factory(client=client)
+def create_user(request: SignUpControllerRequest):
+  controller = signup_controller_factory()
   http_response = controller.handle(request)
   return route_response_adapter(http_response)

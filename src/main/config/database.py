@@ -1,5 +1,4 @@
 from pydantic import BaseSettings
-from pymongo import MongoClient
 
 class Settings(BaseSettings):
   database_hostname: str
@@ -15,10 +14,3 @@ settings = Settings()
 uri: str = f'mongodb://\
 {settings.database_hostname}:\
 {settings.database_port}'
-
-def get_db():
-  client: MongoClient = MongoClient(uri)
-  try:
-    yield client
-  finally:
-    client.close()

@@ -1,3 +1,15 @@
 from .config import create_app
+from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 
-app = create_app()
+from ..infra.db.mongodb import mongohelper
+from .config import uri
+
+
+try:
+  mongohelper.connect(MongoClient(uri))
+  mongohelper.server()
+  app = create_app()
+except ServerSelectionTimeoutError as e:
+  print('Server is down')
+  print(e)

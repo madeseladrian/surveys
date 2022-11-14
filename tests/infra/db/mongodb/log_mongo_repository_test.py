@@ -1,23 +1,27 @@
 from faker import Faker
 import mongomock
 
-from src.infra.db.mongodb import LogMongoRepository
+from src.infra.db.mongodb import LogMongoRepository, mongohelper
 
 
 class TestLogMongoRepository:
   faker = Faker()
+  error = faker.word()
+  mongohelper.connect(mongomock.MongoClient())
+  collection = mongohelper.get_collection(
+    database='surveys',
+    collection='errors'
+  )
 
   def make_sut(self) -> LogMongoRepository:
     return LogMongoRepository()
 
   def test_1_should_create_an_error_log_on_success(self):
-    error = self.faker.word()
     sut = self.make_sut()
-    sut.client = mongomock.MongoClient()
-    sut.log_error(error=error)
+    sut.log_error(self.error)
 
-    count = sut.client.surveys.errors.count_documents({})
-    log = sut.client.surveys.errors.find_one({})
+    count = self.collection.count_documents({})
+    log = self.collection.find_one({})
 
     assert count == 1
-    assert log['log'] == error
+    assert log['log'] == self.error

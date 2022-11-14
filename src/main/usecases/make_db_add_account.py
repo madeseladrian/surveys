@@ -1,5 +1,3 @@
-from pymongo import MongoClient
-
 from ...domain.features import AddAccount
 from ...data.usecases import DbAddAccount
 
@@ -7,9 +5,8 @@ from ...infra.cryptography import BCryptAdapter
 from ...infra.db.mongodb import AccountMongoRepository
 
 
-def make_db_add_account(client: MongoClient) -> AddAccount:
+def make_db_add_account() -> AddAccount:
   account_mongo_repository = AccountMongoRepository()
-  account_mongo_repository.client = client
 
   return DbAddAccount(
     add_account_repository=account_mongo_repository,
