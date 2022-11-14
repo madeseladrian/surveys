@@ -53,14 +53,14 @@ class TestSignUpController:
 
   # Exceptions Tests
 
-  def test_4_return_400_if_Validation_returns_an_error(self):
+  def test_4_should_return_400_if_Validation_returns_an_error(self):
     sut, _, validation_spy = self.make_sut()
     validation_spy.error = MissingParamError(self.faker.word())
     http_response = sut.handle(self.params)
 
     assert http_response == bad_request(validation_spy.error)
 
-  def test_5_return_403_if_AddAccount_returns_false(self):
+  def test_5_should_return_403_if_AddAccount_returns_false(self):
     sut, add_account_spy, _ = self.make_sut()
     add_account_spy.result = False
     http_response = sut.handle(self.params)
@@ -68,7 +68,7 @@ class TestSignUpController:
     assert http_response == forbidden(EmailInUseError())
 
   @patch('tests.presentation.mocks.ValidationSpy.validate')
-  def test_6_return_500_if_Validation_throws(self, mocker):
+  def test_6_should_return_500_if_Validation_throws(self, mocker):
     sut, _, _ = self.make_sut()
     exception = Exception()
     mocker.side_effect = exception
@@ -77,7 +77,7 @@ class TestSignUpController:
     assert http_response == server_error(error=exception)
 
   @patch('tests.presentation.mocks.AddAccountSpy.add')
-  def test_7_return_500_if_AddAccount_throws(self, mocker):
+  def test_7_should_return_500_if_AddAccount_throws(self, mocker):
     sut, _, _ = self.make_sut()
     exception = Exception()
     mocker.side_effect = exception

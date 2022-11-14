@@ -6,7 +6,8 @@ from src.domain.features import Authentication
 
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import LoginController
-from src.presentation.helpers import ok
+from src.presentation.helpers import bad_request, ok
+from src.presentation.errors import MissingParamError
 
 from ...domain.mocks import mock_authentication_params
 from ..mocks import AuthenticationSpy, ValidationSpy
@@ -48,3 +49,12 @@ class TestAuthenticationController:
 
     assert http_response['status_code'] == 200
     assert http_response == ok(authentication_spy.result)
+
+  # Exceptions Tests
+
+  def test_4_should_return_400_if_Validation_returns_an_error(self):
+    sut, _, validation_spy = self.make_sut()
+    validation_spy.error = MissingParamError(self.faker.word())
+    http_response = sut.handle(self.params)
+
+    assert http_response == bad_request(validation_spy.error)
