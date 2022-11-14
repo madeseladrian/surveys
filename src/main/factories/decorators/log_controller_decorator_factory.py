@@ -1,13 +1,14 @@
-from pymongo import MongoClient
-
-from ....presentation.contracts import Controller
 from ....infra.db.mongodb import LogMongoRepository
 from ...decorators import LogControllerDecorator
 
-def log_controller_decorator_factory(client: MongoClient, controller: Controller):
-  log_mongo_repository = LogMongoRepository(client=client)
+def log_controller_decorator_factory(controller_function):
+  def wrapper_controller(*args, **kwargs):
+    controller = controller_function(*args, **kwargs)
+    log_mongo_repository = LogMongoRepository(*args, **kwargs)
 
-  return LogControllerDecorator(
-    controller=controller,
-    log_error_repository=log_mongo_repository
-  )
+    return LogControllerDecorator(
+      controller=controller,
+      log_error_repository=log_mongo_repository
+    )
+
+  return wrapper_controller

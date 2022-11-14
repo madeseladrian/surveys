@@ -7,7 +7,7 @@ from ...infra.cryptography import BCryptAdapter
 from ...infra.db.mongodb import AccountMongoRepository
 
 
-def make_db_add_account(client: MongoClient = None) -> AddAccount:
+def make_db_add_account(client: MongoClient) -> AddAccount:
   account_mongo_repository = AccountMongoRepository()
   account_mongo_repository.client = client
 
