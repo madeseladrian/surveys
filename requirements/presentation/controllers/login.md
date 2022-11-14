@@ -2,7 +2,7 @@
 
 > ## Caso de sucesso
 
-1. ❌ Chama o **Validation** com os valores **email** e **password** corretos
+1. ✅ Chama o **Validation** com os valores **email** e **password** corretos
 2. ❌ Chama o **Authentication** com os valores **email** e **password** corretos
 3. ❌ **Busca** o usuário com o email e senha fornecidos
 4. ❌ Retorna **200** com o token de acesso
