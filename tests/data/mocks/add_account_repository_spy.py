@@ -1,10 +1,10 @@
 from data.contracts.db.account import AddAccountRepository
-from src.data.params import AddAccountRepositoryParams
+from src.data.params import AddAccountRepositoryParams, AddAccountRepositoryResult
 
 class AddAccountRepositorySpy(AddAccountRepository):
   params: AddAccountRepositoryParams
-  result: bool = True
+  result: AddAccountRepositoryResult = True
 
-  def add(self, params: AddAccountRepositoryParams) -> bool:
+  def add(self, params: AddAccountRepositoryParams) -> AddAccountRepositoryResult:
     self.params = params
     return self.result
