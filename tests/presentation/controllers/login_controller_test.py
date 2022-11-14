@@ -1,12 +1,18 @@
 from faker import Faker
 from typing import Tuple
+from unittest.mock import patch
 
 from src.domain.params import AuthenticationParams
 from src.domain.features import Authentication
 
 from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import LoginController
-from src.presentation.helpers import bad_request, ok, unauthorized
+from src.presentation.helpers import (
+  bad_request,
+  ok,
+  server_error,
+  unauthorized
+)
 from src.presentation.errors import MissingParamError
 
 from ...domain.mocks import mock_authentication_params
@@ -67,3 +73,13 @@ class TestAuthenticationController:
 
     assert http_response['status_code'] == 401
     assert http_response == unauthorized()
+
+  @patch('tests.presentation.mocks.ValidationSpy.validate')
+  def test_6_should_return_500_if_Validation_throws(self, mocker):
+    sut, _, _ = self.make_sut()
+    exception = Exception()
+    mocker.side_effect = exception
+    http_response = sut.handle(request=self.params)
+
+    assert http_response['status_code'] == 500
+    assert http_response == server_error(error=exception)
