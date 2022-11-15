@@ -7,6 +7,8 @@ from src.infra.cryptography import BCryptAdapter
 class TestBCryptAdapter:
     bcrypt_adapter = BCryptAdapter()
 
+    # Hash
+
     @patch('src.infra.cryptography.BCryptAdapter.hash')
     def test_1_should_call_hash_with_correct_value(self, mocker):
         self.bcrypt_adapter.hash('any_value')
@@ -31,3 +33,11 @@ class TestBCryptAdapter:
 
         with pytest.raises(Exception):
             self.bcrypt_adapter.hash('any_value')
+
+    # HashComparer
+
+    @patch('src.infra.cryptography.BCryptAdapter.verify')
+    def test_5_should_call_verify_with_correct_values(self, mocker):
+        self.bcrypt_adapter.verify('any_value')
+
+        mocker.assert_called_once_with('any_value')
