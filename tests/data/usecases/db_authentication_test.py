@@ -60,3 +60,18 @@ class TestDbAuthentication:
 
     assert hash_comparer_spy.plain_password == self.params['password']
     assert hash_comparer_spy.hashed_password == load_account_by_email_repository_spy.result['password']
+
+  def test_5_should_return_None_if_HashComparer_returns_false(self):
+    sut, hash_comparer_spy, _ = self.make_sut()
+    hash_comparer_spy.is_valid = False
+    authentication_model = sut.auth(self.params)
+
+    assert authentication_model is None
+
+  @patch('tests.data.mocks.HashComparerSpy.verify')
+  def test_6_should_return_an_error_if_HashComparer_throws(self, mocker):
+    sut, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.auth(self.params)
