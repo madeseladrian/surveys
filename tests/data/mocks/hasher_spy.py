@@ -1,6 +1,7 @@
 import uuid
 from src.data.contracts.cryptography import Hasher
 
+
 class HasherSpy(Hasher):
   digest: str = str(uuid.uuid4())
   plaintext: str

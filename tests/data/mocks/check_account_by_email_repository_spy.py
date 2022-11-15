@@ -1,5 +1,6 @@
 from data.contracts.db.account import CheckAccountByEmailRepository
 
+
 class CheckAccountByEmailRepositorySpy(CheckAccountByEmailRepository):
   email: str
   result: bool = False

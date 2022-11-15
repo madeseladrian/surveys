@@ -5,5 +5,5 @@ from dataclasses import dataclass
 class HashComparer(ABC):
 
   @abstractmethod
-  def verify(self, plain_password: str, hashed_password: str) -> str:
+  def verify(self, plain_password: str, hashed_password: str) -> bool:
     raise NotImplementedError('Should implement method: verify')

@@ -1,5 +1,6 @@
 from .add_account_repository_spy import AddAccountRepositorySpy
 from .check_account_by_email_repository_spy import CheckAccountByEmailRepositorySpy
+from .hash_comparer_spy import HashComparerSpy
 from .hasher_spy import HasherSpy
 from .log_error_repository_spy import LogErrorRepositorySpy
 from .load_account_by_email_repository_spy import LoadAccountByEmailRepositorySpy

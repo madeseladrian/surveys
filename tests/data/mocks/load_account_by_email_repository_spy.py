@@ -3,6 +3,7 @@ from faker import Faker
 from data.contracts.db.account import LoadAccountByEmailRepository
 from data.params import LoadAccountByEmailRepositoryResult
 
+
 faker = Faker()
 
 class LoadAccountByEmailRepositorySpy(LoadAccountByEmailRepository):

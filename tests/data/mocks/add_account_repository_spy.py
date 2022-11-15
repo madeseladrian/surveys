@@ -1,6 +1,7 @@
 from data.contracts.db.account import AddAccountRepository
 from src.data.params import AddAccountRepositoryParams, AddAccountRepositoryResult
 
+
 class AddAccountRepositorySpy(AddAccountRepository):
   params: AddAccountRepositoryParams
   result: AddAccountRepositoryResult = True
