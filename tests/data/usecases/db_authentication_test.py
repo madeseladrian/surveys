@@ -118,3 +118,10 @@ class TestDbAuthentication:
 
     with pytest.raises(Exception):
       sut.auth(self.params)
+
+  def test_11_should_return_data_on_success(self):
+    sut, encrypter_spy, _, load_account_by_email_repository_spy, _ = self.make_sut()
+    result = sut.auth(self.params)
+
+    assert result['access_token'] == encrypter_spy.token
+    assert result['name'] == load_account_by_email_repository_spy.result['name']
