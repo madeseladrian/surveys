@@ -57,3 +57,10 @@ class TestBCryptAdapter:
         )
 
         assert is_valid is False
+
+    @patch('src.infra.cryptography.BCryptAdapter.verify')
+    def test_8_should_throw_if_verify_throws(self, mocker):
+        mocker.side_effect = Exception
+
+        with pytest.raises(Exception):
+            self.bcrypt_adapter.verify('any_value')
