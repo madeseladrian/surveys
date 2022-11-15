@@ -61,7 +61,7 @@ class TestDbAuthentication:
     assert authentication_model is None
 
   @patch('tests.data.mocks.LoadAccountByEmailRepositorySpy.load_by_email')
-  def test_3_should_return_an_error_if_LoadAccountByEmailRepository_throws(self, mocker):
+  def test_3_should_throw_if_LoadAccountByEmailRepository_throws(self, mocker):
     sut, _, _, _, _ = self.make_sut()
     mocker.side_effect = Exception
 
@@ -83,7 +83,7 @@ class TestDbAuthentication:
     assert authentication_model is None
 
   @patch('tests.data.mocks.HashComparerSpy.verify')
-  def test_6_should_return_an_error_if_HashComparer_throws(self, mocker):
+  def test_6_should_throw_if_HashComparer_throws(self, mocker):
     sut, _, _, _, _ = self.make_sut()
     mocker.side_effect = Exception
 
@@ -97,7 +97,7 @@ class TestDbAuthentication:
     assert encrypter_spy.plain_password == load_account_by_email_repository_spy.result['id']
 
   @patch('tests.data.mocks.EncrypterSpy.encrypt')
-  def test_8_should_return_an_error_if_Encrypter_throws(self, mocker):
+  def test_8_should_throw_if_Encrypter_throws(self, mocker):
     sut, _, _, _, _ = self.make_sut()
     mocker.side_effect = Exception
 
@@ -110,3 +110,11 @@ class TestDbAuthentication:
 
     assert update_access_token_repository_spy.id == load_account_by_email_repository_spy.result['id']
     assert update_access_token_repository_spy.token == encrypter_spy.token
+
+  @patch('tests.data.mocks.UpdateAccessTokenRepositorySpy.update_access_token')
+  def test_10_should_throw_if_UpdateAccessTokenRepository_throws(self, mocker):
+    sut, _, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.auth(self.params)
