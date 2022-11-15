@@ -89,3 +89,11 @@ class TestDbAuthentication:
     sut.auth(self.params)
 
     assert encrypter_spy.plain_password == load_account_by_email_repository_spy.result['id']
+
+  @patch('tests.data.mocks.EncrypterSpy.encrypt')
+  def test_8_should_return_an_error_if_Encrypter_throws(self, mocker):
+    sut, _, _, _ = self.make_sut()
+    mocker.side_effect = Exception
+
+    with pytest.raises(Exception):
+      sut.auth(self.params)
