@@ -49,3 +49,11 @@ class TestBCryptAdapter:
         )
 
         assert is_valid
+
+    def test_7_should_should_return_false_if_verify_fails(self):
+        is_valid = self.bcrypt_adapter.verify(
+            plain_password='any_password',
+            hashed_password='$2b$12$dSDB87pZc.WBs1OcUB1evujMAckGgRyRsQxf6ZvAmr2M6hg.uaLOy'
+        )
+
+        assert is_valid is False
