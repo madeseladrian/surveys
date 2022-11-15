@@ -5,3 +5,4 @@ from .hash_comparer_spy import HashComparerSpy
 from .hasher_spy import HasherSpy
 from .log_error_repository_spy import LogErrorRepositorySpy
 from .load_account_by_email_repository_spy import LoadAccountByEmailRepositorySpy
+from .update_access_token_repository_spy import UpdateAccessTokenRepositorySpy
