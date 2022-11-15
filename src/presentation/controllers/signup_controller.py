@@ -14,22 +14,23 @@ from ..helpers import (
 )
 from ..params import SignUpControllerRequest
 
+
 @dataclass
 class SignUpController(Controller):
-  add_account: AddAccount
-  validation: Validation
+    add_account: AddAccount
+    validation: Validation
 
-  def handle(self, request: SignUpControllerRequest) -> HttpResponse:
-    try:
-      if error := self.validation.validate(request):
-        return bad_request(error)
-      if is_valid := self.add_account.add(AddAccountParams(
-        name=request['name'],
-        email=request['email'],
-        password=request['password']
-      )):
-        return add_account(data=is_valid)
-      return forbidden(EmailInUseError())
+    def handle(self, request: SignUpControllerRequest) -> HttpResponse:
+        try:
+            if error := self.validation.validate(request):
+                return bad_request(error)
+            if is_valid := self.add_account.add(AddAccountParams(
+              name=request['name'],
+              email=request['email'],
+              password=request['password']
+            )):
+                return add_account(data=is_valid)
+            return forbidden(EmailInUseError())
 
-    except Exception as e:
-      return server_error(e)
+        except Exception as e:
+            return server_error(e)

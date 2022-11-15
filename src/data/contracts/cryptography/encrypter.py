@@ -4,6 +4,6 @@ from dataclasses import dataclass
 @dataclass
 class Encrypter(ABC):
 
-  @abstractmethod
-  def encrypt(self, plain_password: str) -> str:
-    raise NotImplementedError('Should implement method: encrypt')
+    @abstractmethod
+    def encrypt(self, plain_password: str) -> str:
+        raise NotImplementedError('Should implement method: encrypt')

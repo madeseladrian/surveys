@@ -4,6 +4,6 @@ from typing import Any
 
 class LogErrorRepository(ABC):
 
-  @abstractmethod
-  def log_error(self, error: Any) -> None:
-    raise NotImplementedError('Should implement method: log_error')
+    @abstractmethod
+    def log_error(self, error: Any) -> None:
+        raise NotImplementedError('Should implement method: log_error')

@@ -1,5 +1,6 @@
 from typing import TypedDict
 
+
 class LoginControllerRequest(TypedDict):
-  email: str
-  password: str
+    email: str
+    password: str

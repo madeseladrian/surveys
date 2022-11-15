@@ -4,6 +4,6 @@ from dataclasses import dataclass
 @dataclass
 class EmailValidator(ABC):
 
-  @abstractmethod
-  def is_valid(self, email: str) -> bool:
-    raise NotImplementedError('Should implement method: is_valid')
+    @abstractmethod
+    def is_valid(self, email: str) -> bool:
+        raise NotImplementedError('Should implement method: is_valid')

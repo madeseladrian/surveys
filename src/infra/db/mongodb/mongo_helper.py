@@ -5,12 +5,12 @@ from pymongo.collection import Collection
 
 @dataclass
 class MongoHelper:
-  client: MongoClient = None
+    client: MongoClient = None
 
-  def connect(self, client: MongoClient) -> None:
-    self.client = client
+    def connect(self, client: MongoClient) -> None:
+        self.client = client
 
-  def get_collection(self, database: str, collection: str) -> Collection:
-    return self.client[database][collection]
+    def get_collection(self, database: str, collection: str) -> Collection:
+        return self.client[database][collection]
 
 mongohelper = MongoHelper()

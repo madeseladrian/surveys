@@ -20,6 +20,6 @@ router = APIRouter(
   response_model=SignUpResponseModel
 )
 def create_user(request: SignUpControllerRequest):
-  controller = signup_controller_factory()
-  http_response = controller.handle(request)
-  return route_response_adapter(http_response)
+    controller = signup_controller_factory()
+    http_response = controller.handle(request)
+    return route_response_adapter(http_response)

@@ -3,9 +3,9 @@ from src.data.params import AddAccountRepositoryParams, AddAccountRepositoryResu
 
 
 class AddAccountRepositorySpy(AddAccountRepository):
-  params: AddAccountRepositoryParams
-  result: AddAccountRepositoryResult = True
+    params: AddAccountRepositoryParams
+    result: AddAccountRepositoryResult = True
 
-  def add(self, params: AddAccountRepositoryParams) -> AddAccountRepositoryResult:
-    self.params = params
-    return self.result
+    def add(self, params: AddAccountRepositoryParams) -> AddAccountRepositoryResult:
+        self.params = params
+        return self.result

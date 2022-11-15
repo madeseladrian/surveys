@@ -11,17 +11,18 @@ from ..helpers import (
 )
 from ..params import LoginControllerRequest
 
+
 @dataclass
 class LoginController(Controller):
-  authentication: Authentication
-  validation: Validation
+    authentication: Authentication
+    validation: Validation
 
-  def handle(self, request: LoginControllerRequest) -> HttpResponse:
-    try:
-      if error := self.validation.validate(request):
-        return bad_request(error)
-      authentication_model = self.authentication.auth(request)
-      return ok(authentication_model) if authentication_model else unauthorized()
+    def handle(self, request: LoginControllerRequest) -> HttpResponse:
+        try:
+            if error := self.validation.validate(request):
+                return bad_request(error)
+            authentication_model = self.authentication.auth(request)
+            return ok(authentication_model) if authentication_model else unauthorized()
 
-    except Exception as e:
-      return server_error(e)
+        except Exception as e:
+            return server_error(e)

@@ -7,9 +7,9 @@ from .config import uri
 
 
 try:
-  mongohelper.connect(MongoClient(uri))
-  mongohelper.client.server_info()
-  app = create_app()
+    mongohelper.connect(MongoClient(uri))
+    mongohelper.client.server_info()
+    app = create_app()
 except ServerSelectionTimeoutError as e:
-  print('Server is down')
-  print(e)
+    print('Server is down')
+    print(e)

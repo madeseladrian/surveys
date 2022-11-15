@@ -9,12 +9,12 @@ from .mongo_helper import mongohelper
 @dataclass
 class LogMongoRepository(LogErrorRepository):
 
-  def log_error(self, error: Any) -> None:
-    error_collection = mongohelper.get_collection(
-      database='surveys',
-      collection='errors'
-    )
-    error_collection.insert_one({
-      'log': str(error),
-      'date': datetime.datetime.now()
-    })
+    def log_error(self, error: Any) -> None:
+        error_collection = mongohelper.get_collection(
+          database='surveys',
+          collection='errors'
+        )
+        error_collection.insert_one({
+          'log': str(error),
+          'date': datetime.datetime.now()
+        })
