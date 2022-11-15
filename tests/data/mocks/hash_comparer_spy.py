@@ -6,7 +6,7 @@ class HashComparerSpy(HashComparer):
     hashed_password: str
     is_valid: bool = True
 
-    def verify(self, plain_password: str, hashed_password: str) -> bool:
+    def verify_password(self, plain_password: str, hashed_password: str) -> bool:
         self.plain_password = plain_password
         self.hashed_password = hashed_password
         return self.is_valid

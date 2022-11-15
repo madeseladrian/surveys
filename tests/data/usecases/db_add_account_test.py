@@ -74,7 +74,7 @@ class TestDbAddAccount:
 
         assert hasher_spy.plaintext == self.params['password']
 
-    @patch('tests.data.mocks.HasherSpy.hash')
+    @patch('tests.data.mocks.HasherSpy.get_password_hash')
     def test_6_should_return_an_error_if_Hasher_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         mocker.side_effect = Exception

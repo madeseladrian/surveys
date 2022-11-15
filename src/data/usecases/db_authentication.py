@@ -23,7 +23,7 @@ class DbAuthentication(Authentication):
         if account := self.loadAccount_by_email_repository.load_by_email(
           email=authentication['email']
         ):
-            if self.hash_comparer.verify(
+            if self.hash_comparer.verify_password(
               plain_password=authentication['password'],
               hashed_password=account['password']
             ):

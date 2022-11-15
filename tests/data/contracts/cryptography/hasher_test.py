@@ -13,5 +13,5 @@ class TestHasher:
     def test_2_should_Hasher_raise_a_NotImplementedError_if_not_implemented(self):
         hasher = Hasher()
 
-        with pytest.raises(NotImplementedError, match='Should implement method: hash'):
-            hasher.hash(password='')
+        with pytest.raises(NotImplementedError, match='Should implement method: get_password_hash'):
+            hasher.get_password_hash(password='')

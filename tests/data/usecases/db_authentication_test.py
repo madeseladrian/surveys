@@ -82,7 +82,7 @@ class TestDbAuthentication:
 
         assert authentication_model is None
 
-    @patch('tests.data.mocks.HashComparerSpy.verify')
+    @patch('tests.data.mocks.HashComparerSpy.verify_password')
     def test_6_should_throw_if_HashComparer_throws(self, mocker):
         sut, _, _, _, _ = self.make_sut()
         mocker.side_effect = Exception

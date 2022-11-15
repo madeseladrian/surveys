@@ -17,7 +17,7 @@ class DbAddAccount(AddAccount):
         is_valid = False
 
         if not exists:
-            hashed_password = self.hasher.hash(account['password'])
+            hashed_password = self.hasher.get_password_hash(account['password'])
             data = account.copy()
             data.update({'password': hashed_password})
 
