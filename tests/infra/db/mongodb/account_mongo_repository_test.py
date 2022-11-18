@@ -18,10 +18,7 @@ class TestAccountMongoRepository:
 
     @pytest.fixture
     def clear_db(self) -> None:
-        collection = mongohelper.get_collection(
-          database='surveys',
-          collection='accounts'
-        )
+        collection = mongohelper.get_collection(collection='accounts')
         collection.delete_many({})
 
     def test_1_should_return_true_on_success(self, clear_db):
@@ -41,10 +38,7 @@ class TestAccountMongoRepository:
 
     def test_3_should_return_true_if_email_is_valid(self, clear_db):
         sut = self.make_sut()
-        collections = mongohelper.get_collection(
-          database='surveys',
-          collection='accounts'
-        )
+        collections = mongohelper.get_collection(collection='accounts')
         collections.insert_one(self.params)
         exists = sut.check_by_email(self.params['email'])
 
@@ -54,11 +48,19 @@ class TestAccountMongoRepository:
     def test_4_should_return_false_if_email_is_not_valid(self, mocker, clear_db):
         mocker.return_value = False
         sut = self.make_sut()
-        collections = mongohelper.get_collection(
-          database='surveys',
-          collection='accounts'
-        )
+        collections = mongohelper.get_collection(collection='accounts')
         collections.insert_one(self.params)
         exists = sut.check_by_email(self.params['email'])
 
         assert exists is False
+
+    def test_5_should_return_an_account_on_success(self, clear_db):
+        sut = self.make_sut()
+        collections = mongohelper.get_collection(collection='accounts')
+        collections.insert_one(self.params)
+        account = sut.load_by_email(self.params['email'])
+
+        assert account
+        assert account['id']
+        assert account['name'] == self.params['name']
+        assert account['password'] == self.params['password']
