@@ -1,9 +1,11 @@
 from dataclasses import dataclass
+from bson.objectid import ObjectId
 
 from ....data.contracts.db.account import (
     AddAccountRepository,
     CheckAccountByEmailRepository,
-    LoadAccountByEmailRepository
+    LoadAccountByEmailRepository,
+    UpdateAccessTokenRepository
 )
 from ....data.params import (
     AddAccountRepositoryParams,
@@ -17,7 +19,8 @@ from .mongo_helper import mongohelper
 class AccountMongoRepository(
     AddAccountRepository,
     CheckAccountByEmailRepository,
-    LoadAccountByEmailRepository
+    LoadAccountByEmailRepository,
+    UpdateAccessTokenRepository
 ):
 
     def add(self, data: AddAccountRepositoryParams) -> AddAccountRepositoryResult:
@@ -39,3 +42,9 @@ class AccountMongoRepository(
             '_id': 1, 'name': 1, 'password': 1
         })
         return mongohelper.map_collection(account) if account is not None else None
+
+    def update_access_token(self, user_id: str, token: str) -> None:
+        object_id = ObjectId(user_id)
+        mongohelper.get_collection(
+            collection='accounts'
+        ).update_one({'_id': object_id}, {"$set": {'access_token': token}})

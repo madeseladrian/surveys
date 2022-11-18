@@ -1,3 +1,4 @@
+from faker import Faker
 import mongomock
 import pytest
 from unittest.mock import patch
@@ -10,6 +11,7 @@ from ....domain.mocks import mock_add_account_params
 
 class TestAccountMongoRepository:
     # SetUp
+    faker = Faker()
     params: AddAccountParams = mock_add_account_params()
     mongohelper.connect(mongomock.MongoClient())
 
@@ -70,3 +72,18 @@ class TestAccountMongoRepository:
         account = sut.load_by_email(self.params['email'])
 
         assert account is None
+
+    def test_7_should_update_account_access_token_on_success(self, clear_db):
+        sut = self.make_sut()
+        collections = mongohelper.get_collection(collection='accounts')
+        inserted_params = collections.insert_one(self.params)
+        fake_account = collections.find_one({'_id': inserted_params.inserted_id})
+
+        assert not fake_account.get('access_token')
+
+        access_token = self.faker.uuid4()
+        sut.update_access_token(user_id=fake_account['_id'], token=access_token)
+        account = collections.find_one({'_id': inserted_params.inserted_id})
+        print(account)
+        assert account
+        assert account['access_token'] == access_token
