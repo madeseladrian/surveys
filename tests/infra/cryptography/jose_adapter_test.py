@@ -20,6 +20,14 @@ class TestJoseAdapter:
 
     def test_2_should_return_a_string_on_encrypt_success(self):
         sut = self.make_sut()
-        encrypted_password = sut.encrypt('any_value')
+        encrypted_user_id = sut.encrypt('any_value')
 
-        assert isinstance(encrypted_password, str)
+        assert isinstance(encrypted_user_id, str)
+
+    @patch('src.infra.cryptography.JoseAdapter.encrypt')
+    def test_3_should_return_a_valid_token_on_encrypt_success(self, mocker):
+        mocker.return_value = 'any_token'
+        sut = self.make_sut()
+        encrypted_user_id = sut.encrypt('any_id')
+
+        assert encrypted_user_id == 'any_token'
