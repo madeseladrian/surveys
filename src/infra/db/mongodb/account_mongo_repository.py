@@ -38,4 +38,4 @@ class AccountMongoRepository(
         ).find_one({'email': email}, {
             '_id': 1, 'name': 1, 'password': 1
         })
-        return mongohelper.map_collection(account)
+        return mongohelper.map_collection(account) if account is not None else None
