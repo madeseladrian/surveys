@@ -27,7 +27,6 @@ class TestBCryptAdapter:
     @patch('src.infra.cryptography.BCryptAdapter.get_password_hash')
     def test_3_should_return_a_valid_hash_on_hash_success(self, mocker):
         mocker.return_value = 'hashed'
-
         sut = self.make_sut()
         hashed_password = sut.get_password_hash('any_value')
 
@@ -36,7 +35,6 @@ class TestBCryptAdapter:
     @patch('src.infra.cryptography.BCryptAdapter.get_password_hash')
     def test_4_should_throw_if_hash_throws(self, mocker):
         mocker.side_effect = Exception
-
         sut = self.make_sut()
 
         with pytest.raises(Exception):
@@ -72,7 +70,6 @@ class TestBCryptAdapter:
     @patch('src.infra.cryptography.BCryptAdapter.verify_password')
     def test_8_should_throw_if_verify_password_throws(self, mocker):
         mocker.side_effect = Exception
-
         sut = self.make_sut()
 
         with pytest.raises(Exception):
