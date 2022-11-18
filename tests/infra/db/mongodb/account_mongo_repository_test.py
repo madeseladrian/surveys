@@ -39,15 +39,7 @@ class TestAccountMongoRepository:
 
         assert is_valid is False
 
-    @patch('src.infra.db.mongodb.AccountMongoRepository.add')
-    def test_3_should_throw_if_add_throws(self, mocker, clear_db):
-        mocker.side_effect = Exception
-        sut = self.make_sut()
-
-        with pytest.raises(Exception):
-            sut.add(dict(self.params))
-
-    def test_4_should_return_true_if_email_is_valid(self, clear_db):
+    def test_3_should_return_true_if_email_is_valid(self, clear_db):
         sut = self.make_sut()
         collections = mongohelper.get_collection(
           database='surveys',
@@ -57,3 +49,16 @@ class TestAccountMongoRepository:
         exists = sut.check_by_email(self.params['email'])
 
         assert exists
+
+    @patch('src.infra.db.mongodb.AccountMongoRepository.check_by_email')
+    def test_4_should_return_false_if_email_is_not_valid(self, mocker, clear_db):
+        mocker.return_value = False
+        sut = self.make_sut()
+        collections = mongohelper.get_collection(
+          database='surveys',
+          collection='accounts'
+        )
+        collections.insert_one(self.params)
+        exists = sut.check_by_email(self.params['email'])
+
+        assert exists is False
