@@ -6,8 +6,8 @@ faker = Faker()
 
 class EncrypterSpy(Encrypter):
     token: str = faker.uuid4()
-    plain_password: str
+    user_id: str
 
-    def encrypt(self, plain_password: str) -> str:
-        self.plain_password = plain_password
+    def encrypt(self, user_id: str) -> str:
+        self.user_id = user_id
         return self.token

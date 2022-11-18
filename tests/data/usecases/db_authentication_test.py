@@ -94,7 +94,7 @@ class TestDbAuthentication:
         sut, encrypter_spy, _, load_account_by_email_repository_spy, _ = self.make_sut()
         sut.auth(self.params)
 
-        assert encrypter_spy.plain_password == load_account_by_email_repository_spy.result['id']
+        assert encrypter_spy.user_id == load_account_by_email_repository_spy.result['id']
 
     @patch('tests.data.mocks.EncrypterSpy.encrypt')
     def test_8_should_throw_if_Encrypter_throws(self, mocker):

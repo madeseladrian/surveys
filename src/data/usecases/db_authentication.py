@@ -27,7 +27,7 @@ class DbAuthentication(Authentication):
               plain_password=authentication['password'],
               hashed_password=account['password']
             ):
-                access_token = self.encrypter.encrypt(plain_password=account['id'])
+                access_token = self.encrypter.encrypt(user_id=account['id'])
                 self.update_access_token_repository.update_access_token(
                   id=account['id'],
                   token=access_token

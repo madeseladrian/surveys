@@ -37,10 +37,3 @@ repos:
         pass_filenames: false
         always_run: true
         stages: [commit]
-        
-      - id: requirements
-        name: requirements
-        entry: bash -c 'pip freeze > requirements.txt; git add requirements.txt'
-        language: system
-        pass_filenames: false
-        stages: [commit]

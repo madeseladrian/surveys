@@ -13,4 +13,4 @@ class TestHashComparer:
         encrypter = Encrypter()
 
         with pytest.raises(NotImplementedError, match='Should implement method: encrypt'):
-            encrypter.encrypt(plain_password='')
+            encrypter.encrypt(user_id='')
