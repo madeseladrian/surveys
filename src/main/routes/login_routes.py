@@ -4,7 +4,7 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from ...presentation.params import LoginControllerRequest
 
 from ..adapters import route_response_adapter
-from ..docs import responses
+from ..docs.login_responses import responses
 from ..factories.controllers import login_controller_factory
 from ..models import LoginResponseModel
 

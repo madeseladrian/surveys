@@ -3,7 +3,7 @@ from fastapi import APIRouter, status
 from ...presentation.params import SignUpControllerRequest
 
 from ..adapters import route_response_adapter
-from ..docs import responses
+from ..docs.signup_responses import responses
 from ..factories.controllers import signup_controller_factory
 from ..models import SignUpResponseModel
 
