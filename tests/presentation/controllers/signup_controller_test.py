@@ -95,3 +95,10 @@ class TestSignUpController:
 
         assert authentication_spy.params['email'] == request['email']
         assert authentication_spy.params['password'] == request['password']
+
+    def test_8_should_return_200_if_valid_data_is_provided(self):
+        sut, _, _, _ = self.make_sut()
+        http_response = sut.handle(request=self.params)
+
+        assert http_response['status_code'] == 200
+        assert http_response.get('access_token', 'name')
