@@ -27,5 +27,5 @@ class TestSignupRoutes:
             }
         )
 
-        assert response.status_code == 201
-        assert response.json() == {"body": True}
+        assert response.status_code == 200
+        assert response.json().get('access_token', 'name')

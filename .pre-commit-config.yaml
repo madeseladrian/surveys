@@ -13,15 +13,7 @@ repos:
       language: python 
 
 -   repo: local
-    hooks:    
-      - id: pytest-fail
-        name: pytest-fail
-        entry: pytest --cov --cov-fail-under=90
-        language: system
-        pass_filenames: false
-        always_run: true
-        stages: [push]
-
+    hooks:
       - id: pytest-check
         name: pytest-check
         entry: pytest

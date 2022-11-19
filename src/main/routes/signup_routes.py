@@ -17,7 +17,7 @@ router = APIRouter(
 @router.post(
     '/',
     responses=responses,
-    status_code=status.HTTP_201_CREATED,
+    status_code=status.HTTP_200_OK,
     response_model=SignUpResponseModel
 )
 def create_user(request: SignUpControllerRequest):
