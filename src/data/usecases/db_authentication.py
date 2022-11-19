@@ -21,19 +21,19 @@ class DbAuthentication(Authentication):
 
     def auth(self, authentication: AuthenticationParams) -> Optional[AuthenticationResult]:
         if account := self.loadAccount_by_email_repository.load_by_email(
-          email=authentication['email']
+            email=authentication['email']
         ):
             if self.hash_comparer.verify_password(
-              plain_password=authentication['password'],
-              hashed_password=account['password']
+                plain_password=authentication['password'],
+                hashed_password=account['password']
             ):
                 access_token = self.encrypter.encrypt(user_id=account['id'])
                 self.update_access_token_repository.update_access_token(
-                  id=account['id'],
-                  token=access_token
+                    user_id=account['id'],
+                    token=access_token
                 )
                 return AuthenticationResult(
-                  access_token=access_token,
-                  name=account['name']
+                    access_token=access_token,
+                    name=account['name']
                 )
         return None

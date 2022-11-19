@@ -20,11 +20,11 @@ class TestDbAuthentication:
     params: AuthenticationParams = mock_authentication_params()
 
     SutTypes = Tuple[
-      Authentication,
-      EncrypterSpy,
-      HashComparerSpy,
-      LoadAccountByEmailRepositorySpy,
-      UpdateAccessTokenRepositorySpy
+        Authentication,
+        EncrypterSpy,
+        HashComparerSpy,
+        LoadAccountByEmailRepositorySpy,
+        UpdateAccessTokenRepositorySpy
     ]
 
     def make_sut(self) -> SutTypes:
@@ -34,17 +34,17 @@ class TestDbAuthentication:
         update_access_token_repository_spy = UpdateAccessTokenRepositorySpy()
 
         sut: DbAuthentication = DbAuthentication(
-          encrypter=encrypter_spy,
-          hash_comparer=hash_comparer_spy,
-          loadAccount_by_email_repository=load_account_by_email_repository_spy,
-          update_access_token_repository=update_access_token_repository_spy
+            encrypter=encrypter_spy,
+            hash_comparer=hash_comparer_spy,
+            loadAccount_by_email_repository=load_account_by_email_repository_spy,
+            update_access_token_repository=update_access_token_repository_spy
         )
         return (
-          sut,
-          encrypter_spy,
-          hash_comparer_spy,
-          load_account_by_email_repository_spy,
-          update_access_token_repository_spy
+            sut,
+            encrypter_spy,
+            hash_comparer_spy,
+            load_account_by_email_repository_spy,
+            update_access_token_repository_spy
         )
 
     def test_1_should_call_LoadAccountByEmailRepository_with_correct_email(self):
@@ -108,7 +108,7 @@ class TestDbAuthentication:
         sut, encrypter_spy, _, load_account_by_email_repository_spy, update_access_token_repository_spy = self.make_sut()
         sut.auth(self.params)
 
-        assert update_access_token_repository_spy.id == load_account_by_email_repository_spy.result['id']
+        assert update_access_token_repository_spy.user_id == load_account_by_email_repository_spy.result['id']
         assert update_access_token_repository_spy.token == encrypter_spy.token
 
     @patch('tests.data.mocks.UpdateAccessTokenRepositorySpy.update_access_token')

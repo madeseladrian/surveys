@@ -14,4 +14,4 @@ class TestUpdateAccessTokenRepository:
         update_access_token_repository = UpdateAccessTokenRepository()
 
         with pytest.raises(NotImplementedError, match='Should implement method: update_access_token'):
-            update_access_token_repository.update_access_token(id='', token='')
+            update_access_token_repository.update_access_token(user_id='', token='')

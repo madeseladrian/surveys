@@ -6,7 +6,7 @@ from typing import Any, Dict
 
 @dataclass
 class MongoHelper:
-    client: MongoClient = None
+    client: MongoClient = MongoClient()
 
     def connect(self, client: MongoClient) -> None:
         self.client = client

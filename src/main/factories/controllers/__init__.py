@@ -1,1 +1,2 @@
+from .login_controller_factory import login_controller_factory
 from .signup_controller_factory import signup_controller_factory

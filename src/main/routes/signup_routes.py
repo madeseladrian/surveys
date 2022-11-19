@@ -7,17 +7,18 @@ from ..docs import responses
 from ..factories.controllers import signup_controller_factory
 from ..models import SignUpResponseModel
 
+
 router = APIRouter(
-  prefix='/signup',
-  tags=['SignUp']
+    prefix='/api/signup',
+    tags=['SignUp']
 )
 
 
 @router.post(
-  '/',
-  responses=responses,
-  status_code=status.HTTP_201_CREATED,
-  response_model=SignUpResponseModel
+    '/',
+    responses=responses,
+    status_code=status.HTTP_201_CREATED,
+    response_model=SignUpResponseModel
 )
 def create_user(request: SignUpControllerRequest):
     controller = signup_controller_factory()

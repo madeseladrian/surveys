@@ -8,7 +8,6 @@ class TestLogMongoRepository:
     faker = Faker()
     error = faker.word()
     mongohelper.connect(mongomock.MongoClient())
-    collection = mongohelper.get_collection(collection='errors')
 
     def make_sut(self) -> LogMongoRepository:
         return LogMongoRepository()
@@ -17,8 +16,9 @@ class TestLogMongoRepository:
         sut = self.make_sut()
         sut.log_error(self.error)
 
-        count = self.collection.count_documents({})
-        log = self.collection.find_one({})
+        collection = mongohelper.client['surveys']['errors']
+        count = collection.count_documents({})
+        log = collection.find_one({})
 
         assert count == 1
         assert log['log'] == self.error
