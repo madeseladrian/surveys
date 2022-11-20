@@ -1,2 +1,3 @@
 from .add_account_params import AddAccountParams, AddAccountResult
+from .add_survey_params import AddSurveyParams, SurveyAnswerModel
 from .authentication_params import AuthenticationParams, AuthenticationResult
