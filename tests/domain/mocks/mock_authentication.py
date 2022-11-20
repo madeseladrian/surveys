@@ -6,6 +6,6 @@ faker = Faker()
 
 def mock_authentication_params() -> AuthenticationParams:
     return AuthenticationParams(
-      email=faker.email(),
-      password=faker.password()
+        email=faker.email(),
+        password=faker.password()
     )

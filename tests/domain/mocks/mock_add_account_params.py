@@ -6,7 +6,7 @@ faker = Faker()
 
 def mock_add_account_params() -> AddAccountParams:
     return AddAccountParams(
-      name=faker.name(),
-      email=faker.email(),
-      password=faker.password()
+        name=faker.name(),
+        email=faker.email(),
+        password=faker.password()
     )
