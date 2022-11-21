@@ -19,10 +19,10 @@ class TestDbAddAccount:
     params: AddAccountParams = mock_add_account_params()
 
     SutTypes = Tuple[
-      AddAccount,
-      AddAccountRepositorySpy,
-      CheckAccountByEmailRepositorySpy,
-      HasherSpy
+        AddAccount,
+        AddAccountRepositorySpy,
+        CheckAccountByEmailRepositorySpy,
+        HasherSpy
     ]
 
     def make_sut(self) -> SutTypes:
@@ -30,15 +30,15 @@ class TestDbAddAccount:
         check_account_by_email_repository_spy = CheckAccountByEmailRepositorySpy()
         hasher_spy = HasherSpy()
         sut: AddAccount = DbAddAccount(
-          add_account_repository=add_account_repository_spy,
-          check_account_by_email_repository=check_account_by_email_repository_spy,
-          hasher=hasher_spy
+            add_account_repository=add_account_repository_spy,
+            check_account_by_email_repository=check_account_by_email_repository_spy,
+            hasher=hasher_spy
         )
         return (
-          sut,
-          add_account_repository_spy,
-          check_account_by_email_repository_spy,
-          hasher_spy
+            sut,
+            add_account_repository_spy,
+            check_account_by_email_repository_spy,
+            hasher_spy
         )
 
     def test_1_should_call_CheckAccountByEmailRepository_with_correct_email(self):
