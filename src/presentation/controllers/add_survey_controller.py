@@ -7,8 +7,8 @@ from ...domain.params import AddSurveyParams
 from ..contracts import Controller, Validation
 from ..helpers import (
     bad_request,
-    no_content,
     HttpResponse,
+    no_content,
     server_error
 )
 from ..params import AddSurveyControllerRequest
@@ -29,7 +29,6 @@ class AddSurveyController(Controller):
                 answers=request['answers'],
                 date=datetime.now()
             ))
-
             return no_content()
 
         except Exception as e:

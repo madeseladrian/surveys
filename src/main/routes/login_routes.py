@@ -15,12 +15,11 @@ from ..models import LoginResponseModel, SignUpResponseModel
 
 
 router = APIRouter(
-    prefix='/api',
     tags=['Login']
 )
 
 @router.post(
-    '/signup',
+    '/signup/',
     responses=sign_up_responses,
     status_code=status.HTTP_200_OK,
     response_model=SignUpResponseModel
@@ -31,7 +30,7 @@ def create_user(request: SignUpControllerRequest):
     return route_response_adapter(http_response)
 
 @router.post(
-    '/login',
+    '/login/',
     responses=login_responses,
     status_code=status.HTTP_200_OK,
     response_model=LoginResponseModel

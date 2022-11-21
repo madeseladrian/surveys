@@ -18,7 +18,7 @@ class TestLoginRoutes:
 
     def test_create_user(self, clear_db):
         response = self.client.post(
-            '/api/signup/',
+            '/signup/',
             json={
                 "name": "mades",
                 "email": "mades@gmail.com",
@@ -32,7 +32,7 @@ class TestLoginRoutes:
 
     def test_login_on_success(self, clear_db):
         self.client.post(
-            '/api/signup/',
+            '/signup/',
             json={
                 "name": "mades",
                 "email": "mades@gmail.com",
@@ -41,7 +41,7 @@ class TestLoginRoutes:
             }
         )
         response = self.client.post(
-            '/api/login/',
+            '/login/',
             data={'username': 'mades@gmail.com', 'password': '123456'}
         )
 
@@ -50,7 +50,7 @@ class TestLoginRoutes:
 
     def test_login_on_fail(self, clear_db):
         self.client.post(
-            '/api/signup/',
+            '/signup/',
             json={
                 "name": "mades",
                 "email": "mades@gmail.com",
@@ -59,7 +59,7 @@ class TestLoginRoutes:
             }
         )
         response = self.client.post(
-            '/api/login/',
+            '/login/',
             data={'username': 'mades@gmail.com', 'password': '1234567'}
         )
 

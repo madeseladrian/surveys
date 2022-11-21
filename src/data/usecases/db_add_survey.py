@@ -10,4 +10,4 @@ class DbAddSurvey(AddSurvey):
     add_survey_repository: AddSurveyRepository
 
     def add(self, data: AddSurveyParams) -> None:
-        self.add_survey_repository.add(data)
+        return self.add_survey_repository.add(data)

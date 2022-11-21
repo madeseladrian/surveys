@@ -68,8 +68,21 @@ class TestAddSurveyController:
 
         assert add_survey_spy.params == request
 
+    def test_5_should_return_204_if_valid_data_is_provided(self):
+        sut, _, _ = self.make_sut()
+        http_response = sut.handle(request=self.params)
+
+        assert http_response['status_code'] == 204
+        assert http_response['body'] is None
+
+    def test_6_should_return_204_if_valid_data_is_not_provided(self):
+        sut, add_survey_spy, _ = self.make_sut()
+        http_response = sut.handle(request=self.params)
+
+        assert http_response['body'] is None
+
     @patch('tests.presentation.mocks.AddSurveySpy.add')
-    def test_5_should_return_500_if_AddSurvey_throws(self, mocker):
+    def test_7_should_return_500_if_AddSurvey_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()
         mocker.side_effect = exception
@@ -77,10 +90,3 @@ class TestAddSurveyController:
 
         assert http_response['status_code'] == 500
         assert http_response == server_error(error=exception)
-
-    def test_6_should_return_204_if_valid_data_is_provided(self):
-        sut, _, _ = self.make_sut()
-        http_response = sut.handle(request=self.params)
-
-        assert http_response['status_code'] == 204
-        assert http_response['body'] is None

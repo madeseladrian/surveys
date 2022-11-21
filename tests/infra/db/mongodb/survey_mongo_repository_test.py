@@ -22,11 +22,10 @@ class TestSurveyMongoRepository:
         collection = mongohelper.get_collection(collection='surveys')
         collection.delete_many({})
 
-    def test_1_should_return_None_on_success(self, clear_db):
+    def test_1_should_return_True_on_success(self, clear_db):
         sut = self.make_sut()
-        survey = sut.add(dict(self.params))
+        sut.add(dict(self.params))
         collection = mongohelper.client['surveys']['surveys']
         count = collection.count_documents({})
 
         assert count == 1
-        assert survey is None

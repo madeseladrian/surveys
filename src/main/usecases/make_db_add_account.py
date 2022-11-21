@@ -9,7 +9,7 @@ def make_db_add_account() -> AddAccount:
     account_mongo_repository = AccountMongoRepository()
 
     return DbAddAccount(
-      add_account_repository=account_mongo_repository,
-      check_account_by_email_repository=account_mongo_repository,
-      hasher=BCryptAdapter()
+        add_account_repository=account_mongo_repository,
+        check_account_by_email_repository=account_mongo_repository,
+        hasher=BCryptAdapter()
     )

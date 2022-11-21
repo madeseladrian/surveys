@@ -20,8 +20,7 @@ class TestAddSurvey:
                 image='any_image',
                 answer='other_answer'
             )],
-            date=datetime.now(),
-            did_answer=True
+            date=datetime.now()
         )
         add_survey: AddSurvey = AddSurvey()
 
