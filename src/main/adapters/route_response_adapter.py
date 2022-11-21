@@ -10,6 +10,7 @@ def route_response_adapter(http_response: HttpResponse) -> Any:
     match status_code:
         case 200: return http_response
         case 201: return http_response
+        case 204: return http_response
         case 400: raise HTTPException(
           status_code=status.HTTP_400_BAD_REQUEST,
           detail=f"{http_response['body']}"
