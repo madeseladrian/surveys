@@ -1,4 +1,6 @@
 from typing import Tuple
+import pytest
+from unittest.mock import patch
 
 from src.domain.features import AddSurvey
 from src.domain.params import AddSurveyParams
@@ -32,3 +34,11 @@ class TestDbAddSurvey:
         sut.add(self.params)
 
         assert add_survey_repository_spy.data == self.params
+
+    @patch('tests.data.mocks.AddSurveyRepositorySpy.add')
+    def test_2_should_throw_if_AddSurveyRepository_throws(self, mocker):
+        sut, _, = self.make_sut()
+        mocker.side_effect = Exception
+
+        with pytest.raises(Exception):
+            sut.add(self.params)
