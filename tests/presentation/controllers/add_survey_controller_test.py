@@ -22,6 +22,7 @@ class TestAddSurveyController:
 
     SutTypes = Tuple[
         Controller,
+        AddSurveySpy,
         ValidationSpy
     ]
 
@@ -66,3 +67,13 @@ class TestAddSurveyController:
         sut.handle(request=request)
 
         assert add_survey_spy.params == request
+
+    @patch('tests.presentation.mocks.AddSurveySpy.add')
+    def test_5_should_return_500_if_AddSurvey_throws(self, mocker):
+        sut, _, _ = self.make_sut()
+        exception = Exception()
+        mocker.side_effect = exception
+        http_response = sut.handle(request=self.params)
+
+        assert http_response['status_code'] == 500
+        assert http_response == server_error(error=exception)
