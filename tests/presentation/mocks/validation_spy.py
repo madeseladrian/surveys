@@ -6,6 +6,6 @@ class ValidationSpy(Validation):
     error: Optional[Exception] = None
     value: Any
 
-    def validate(self, value: Any) -> Optional[Exception]:
+    def validate(self, value: Any) -> Exception:
         self.value = value
         return self.error

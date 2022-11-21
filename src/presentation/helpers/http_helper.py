@@ -10,6 +10,9 @@ def ok(data: Any) -> HttpResponse:
 def add_account(data: Any) -> HttpResponse:
     return HttpResponse(status_code=201, body=data)
 
+def no_content() -> HttpResponse:
+    return HttpResponse(status_code=204, body=None)
+
 def bad_request(error: Exception) -> HttpResponse:
     return HttpResponse(status_code=400, body=error)
 
