@@ -16,6 +16,20 @@ class TestLoginRoutes:
         collection = mongohelper.get_collection(collection='accounts')
         collection.delete_many({})
 
+    def test_create_user(self, clear_db):
+        response = self.client.post(
+            '/api/signup/',
+            json={
+                "name": "mades",
+                "email": "mades@gmail.com",
+                "password": "123456",
+                "password_confirmation": "123456"
+            }
+        )
+
+        assert response.status_code == 200
+        assert response.json().get('access_token', 'name')
+
     def test_login_on_success(self, clear_db):
         self.client.post(
             '/api/signup/',
