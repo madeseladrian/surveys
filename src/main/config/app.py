@@ -7,7 +7,7 @@ from .routes import create_routes
 def create_app() -> FastAPI:
     app = FastAPI(
       title='Surveys',
-      version='1.0.0'
+      version='1.1.0'
     )
 
     create_middlewares(app)
