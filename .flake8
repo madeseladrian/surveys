@@ -1,13 +1,11 @@
 [flake8]
 ignore=
-  # 2 blank lines
-  E302
-  # 2 blank lines after class or function definition
-  E305
-  # continuation line under-indented for hanging indent
-  E121
-  # line too long (84 > 79 characters)
-  E501
+    E121
+    E302
+    E305
+    F403
+    F405
+    E501
   
 # imported but unused
 per-file-ignores =
