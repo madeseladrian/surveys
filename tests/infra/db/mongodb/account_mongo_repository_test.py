@@ -137,3 +137,10 @@ class TestAccountMongoRepository:
 
         assert account
         assert account['id']
+
+    def test_12_should_return_None_if_load_by_token_fails(self, clear_db):
+        access_token = self.faker.uuid4()
+        sut = self.make_sut()
+        account = sut.load_by_token(access_token)
+
+        assert account is None
