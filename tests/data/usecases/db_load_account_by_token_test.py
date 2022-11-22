@@ -28,3 +28,10 @@ class TestDbLoadAccountByToken:
         sut.load(access_token=self.token, role=self.role)
 
         assert decrypter_spy.token == self.token
+
+    def test_2_should_return_None_if_Decrypter_returns_None(self):
+        sut, decrypter_spy = self.make_sut()
+        decrypter_spy.user_id = None
+        account = sut.load(access_token=self.token, role=self.role)
+
+        assert account is None
