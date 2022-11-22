@@ -56,9 +56,17 @@ class TestJoseAdapter:
 
         assert isinstance(decrypted_user_id, str)
 
-    def test_6_should_return_a_valid_id_on_decrypt_success(self):
+    def test_7_should_return_a_valid_id_on_decrypt_success(self):
         sut = self.make_sut()
         encrypted_user_id = sut.encrypt('any_id')
         decrypted_user_id = sut.decrypt(encrypted_user_id)
 
         assert decrypted_user_id == 'any_id'
+
+    @patch('src.infra.cryptography.JoseAdapter.decrypt')
+    def test_8_should_throw_if_decrypt_throws(self, mocker):
+        mocker.side_effect = Exception
+        sut = self.make_sut()
+
+        with pytest.raises(Exception):
+            sut.decrypt('any_id')
