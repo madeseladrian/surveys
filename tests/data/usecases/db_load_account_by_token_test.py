@@ -52,3 +52,9 @@ class TestDbLoadAccountByToken:
         account = sut.load(access_token=self.token, role=self.role)
 
         assert account is None
+
+    def test_5_should_return_an_account_on_success(self):
+        sut, _, load_account_by_token_repository_spy = self.make_sut()
+        account = sut.load(access_token=self.token, role=self.role)
+
+        assert account == load_account_by_token_repository_spy.result
