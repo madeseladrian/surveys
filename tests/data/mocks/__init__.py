@@ -5,6 +5,7 @@ from .decrypter_spy import DecrypterSpy
 from .encrypter_spy import EncrypterSpy
 from .hash_comparer_spy import HashComparerSpy
 from .hasher_spy import HasherSpy
+from .load_account_by_token_repository_spy import LoadAccountByTokenRepositorySpy
 from .log_error_repository_spy import LogErrorRepositorySpy
 from .load_account_by_email_repository_spy import LoadAccountByEmailRepositorySpy
 from .update_access_token_repository_spy import UpdateAccessTokenRepositorySpy
