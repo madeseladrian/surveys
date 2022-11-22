@@ -22,4 +22,9 @@ class JoseAdapter(Encrypter, Decrypter):
         )
 
     def decrypt(self, token: str) -> str:
-        return super().decrypt(token)
+        payload = jwt.decode(
+            token=token,
+            key=self.key,
+            algorithms=[self.algorithm]
+        )
+        return payload.get('user_id')
