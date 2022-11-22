@@ -1,7 +1,7 @@
 from typing import Tuple
 
 from src.presentation.errors import AccessDeniedError
-from src.presentation.helpers import forbidden
+from src.presentation.helpers import forbidden, ok
 from src.presentation.middleware import AuthMiddleware
 from src.presentation.params import AuthMiddlewareRequest
 
@@ -44,3 +44,11 @@ class TestAuthMiddleware:
         http_response = sut.handle(self.params)
 
         assert http_response == forbidden(AccessDeniedError())
+
+    def test_4_should_return_200_if_LoadAccountByToken_returns_an_account(self):
+        sut, load_account_by_token_spy = self.make_sut()
+        http_response = sut.handle(self.params)
+
+        assert http_response == ok({
+            'account_id': load_account_by_token_spy.result.get('id')
+        })

@@ -4,7 +4,7 @@ from typing import Optional
 from ...domain.features import LoadAccountByToken
 from ..contracts import Middleware
 from ..errors import AccessDeniedError
-from ..helpers import forbidden, HttpResponse
+from ..helpers import forbidden, HttpResponse, ok
 from ..params import AuthMiddlewareRequest
 
 
@@ -15,8 +15,6 @@ class AuthMiddleware(Middleware):
 
     def handle(self, request: AuthMiddlewareRequest) -> HttpResponse:
         if access_token := request.get('access_token'):
-            self.load_account_by_token.load(
-                access_token=access_token,
-                role=self.role
-            )
+            if account := self.load_account_by_token.load(access_token=access_token, role=self.role):
+                return ok({'account_id': account.get('id')})
         return forbidden(AccessDeniedError())
