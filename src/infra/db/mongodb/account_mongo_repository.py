@@ -62,6 +62,11 @@ class AccountMongoRepository(
             collection='accounts'
         ).find_one({
             'access_token': token,
+            "$or": [{
+                'role': None
+            }, {
+                'role': 'admin'
+            }]
         }, {
             '_id': 1,
 

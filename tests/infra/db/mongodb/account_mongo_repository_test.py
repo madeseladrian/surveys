@@ -97,3 +97,17 @@ class TestAccountMongoRepository:
 
         assert account
         assert account['id']
+
+    def test_9_should_return_an_account_on_load_by_token_with_admin_role(self, clear_db):
+        access_token = self.faker.uuid4()
+        sut = self.make_sut()
+        collections = mongohelper.get_collection(collection='accounts')
+        collections.insert_one({
+            **self.params,
+            'access_token': access_token,
+            'role': 'admin'
+        })
+        account = sut.load_by_token(access_token, 'admin')
+
+        assert account
+        assert account['id']
