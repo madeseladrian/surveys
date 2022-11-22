@@ -84,6 +84,16 @@ class TestAccountMongoRepository:
         access_token = self.faker.uuid4()
         sut.update_access_token(user_id=fake_account['_id'], token=access_token)
         account = collections.find_one({'_id': inserted_params.inserted_id})
-        print(account)
+
         assert account
         assert account['access_token'] == access_token
+
+    def test_8_should_return_an_account_on_load_by_token_without_role(self, clear_db):
+        access_token = self.faker.uuid4()
+        sut = self.make_sut()
+        collections = mongohelper.get_collection(collection='accounts')
+        collections.insert_one({**self.params, 'access_token': access_token})
+        account = sut.load_by_token(access_token)
+
+        assert account
+        assert account['id']
