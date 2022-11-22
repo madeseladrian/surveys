@@ -68,3 +68,11 @@ class TestDbLoadAccountByToken:
         account = sut.load(access_token=self.token, role=self.role)
 
         assert account == load_account_by_token_repository_spy.result
+
+    @patch('tests.data.mocks.LoadAccountByTokenRepositorySpy.load_by_token')
+    def test_7_should_throw_if_LoadAccountByTokenRepository_throws(self, mocker):
+        sut, _, _ = self.make_sut()
+        mocker.side_effect = Exception
+
+        with pytest.raises(Exception):
+            sut.load(access_token=self.token, role=self.role)
