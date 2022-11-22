@@ -63,7 +63,7 @@ class AccountMongoRepository(
         ).find_one({
             'access_token': token,
             "$or": [{
-                'role': None
+                'role': role
             }, {
                 'role': 'admin'
             }]
