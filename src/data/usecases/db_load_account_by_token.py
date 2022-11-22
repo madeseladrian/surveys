@@ -18,4 +18,5 @@ class DbLoadAccountByToken(LoadAccountByToken):
                 role=role
             ):
                 return account
+            return None
         return None

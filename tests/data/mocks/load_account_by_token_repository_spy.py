@@ -1,4 +1,5 @@
 from faker import Faker
+from typing import Optional
 
 from src.data.contracts.db.account import LoadAccountByTokenRepository
 from src.data.params import LoadAccountByTokenRepositoryResult
@@ -13,7 +14,7 @@ class LoadAccountByTokenRepositorySpy(LoadAccountByTokenRepository):
         'id': faker.uuid4()
     }
 
-    def load_by_token(self, token: str, role: str = None) -> LoadAccountByTokenRepositoryResult:
+    def load_by_token(self, token: str, role: str = None) -> Optional[LoadAccountByTokenRepositoryResult]:
         self.token = token
         self.role = role
         return self.result

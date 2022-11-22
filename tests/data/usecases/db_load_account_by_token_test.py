@@ -1,5 +1,7 @@
 from typing import Tuple
 from faker import Faker
+import pytest
+from unittest.mock import patch
 
 from src.data.usecases import DbLoadAccountByToken
 from ..mocks import DecrypterSpy, LoadAccountByTokenRepositorySpy
@@ -39,21 +41,29 @@ class TestDbLoadAccountByToken:
 
         assert account is None
 
-    def test_3_should_call_LoadAccountByTokenRepository_with_correct_token(self):
+    @patch('tests.data.mocks.DecrypterSpy.decrypt')
+    def test_3_should_throw_if_Decrypter_throws(self, mocker):
+        sut, _, _ = self.make_sut()
+        mocker.side_effect = Exception
+
+        with pytest.raises(Exception):
+            sut.load(access_token=self.token, role=self.role)
+
+    def test_4_should_call_LoadAccountByTokenRepository_with_correct_token(self):
         sut, _, load_account_by_token_repository_spy = self.make_sut()
         sut.load(access_token=self.token, role=self.role)
 
         assert load_account_by_token_repository_spy.token == self.token
         assert load_account_by_token_repository_spy.role == self.role
 
-    def test_4_should_return_None_if_LoadAccountByTokenRepository_returns_None(self):
+    def test_5_should_return_None_if_LoadAccountByTokenRepository_returns_None(self):
         sut, _, load_account_by_token_repository_spy = self.make_sut()
         load_account_by_token_repository_spy.result = None
         account = sut.load(access_token=self.token, role=self.role)
 
         assert account is None
 
-    def test_5_should_return_an_account_on_success(self):
+    def test_6_should_return_an_account_on_success(self):
         sut, _, load_account_by_token_repository_spy = self.make_sut()
         account = sut.load(access_token=self.token, role=self.role)
 
