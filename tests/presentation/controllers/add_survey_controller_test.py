@@ -38,10 +38,9 @@ class TestAddSurveyController:
 
     def test_1_should_call_Validation_with_correct_values(self):
         sut, _, validation_spy = self.make_sut()
-        request = self.params
-        sut.handle(request=request)
+        sut.handle(self.params)
 
-        assert validation_spy.value == request
+        assert validation_spy.value == self.params
 
     def test_2_should_return_400_if_Validation_returns_an_error(self):
         sut, _, validation_spy = self.make_sut()
@@ -56,7 +55,7 @@ class TestAddSurveyController:
         sut, _, _ = self.make_sut()
         exception = Exception()
         mocker.side_effect = exception
-        http_response = sut.handle(request=self.params)
+        http_response = sut.handle(self.params)
 
         assert http_response['status_code'] == 500
         assert http_response == server_error(error=exception)
