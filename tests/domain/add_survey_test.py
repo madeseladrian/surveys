@@ -13,7 +13,7 @@ class TestAddSurvey:
 
     @patch.multiple(AddSurvey, __abstractmethods__=set())
     def test_2_should_AddSurvey_raise_a_NotImplementedError_if_not_implemented(self):
-        params: AddSurveyParams = AddSurveyParams(
+        params = AddSurveyParams(
             id='any_id',
             question='any_question',
             answers=[SurveyAnswerModel(
@@ -22,7 +22,7 @@ class TestAddSurvey:
             )],
             date=datetime.now()
         )
-        add_survey: AddSurvey = AddSurvey()
+        add_survey = AddSurvey()
 
         with pytest.raises(NotImplementedError, match='Should implement method: add'):
             add_survey.add(data=params)

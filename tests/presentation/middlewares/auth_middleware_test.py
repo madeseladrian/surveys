@@ -1,9 +1,9 @@
-from typing import Tuple
+from typing import Tuple, Optional
 from unittest.mock import patch
 
 from src.presentation.errors import AccessDeniedError
 from src.presentation.helpers import forbidden, ok, server_error
-from src.presentation.middleware import AuthMiddleware
+from src.presentation.middlewares import AuthMiddleware
 from src.presentation.params import AuthMiddlewareRequest
 
 from ..mocks import LoadAccountByTokenSpy
@@ -18,7 +18,7 @@ class TestAuthMiddleware:
         LoadAccountByTokenSpy
     ]
 
-    def make_sut(self, role: str = None) -> SutTypes:
+    def make_sut(self, role: Optional[str] = None) -> SutTypes:
         load_account_by_token_spy = LoadAccountByTokenSpy()
         sut = AuthMiddleware(
             load_account_by_token=load_account_by_token_spy,
@@ -52,7 +52,7 @@ class TestAuthMiddleware:
         http_response = sut.handle(self.params)
 
         assert http_response == ok({
-            'account_id': load_account_by_token_spy.result.get('id')
+            'user_id': load_account_by_token_spy.result.get('id')
         })
 
     @patch('tests.presentation.mocks.LoadAccountByTokenSpy.load')

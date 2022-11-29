@@ -42,4 +42,6 @@ def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
     )
     controller = login_controller_factory()
     http_response = controller.handle(request)
-    return route_response_adapter(http_response)
+    adapter = route_response_adapter(http_response)
+    body = adapter.get('body')
+    return {**body, "token_type": "bearer"}

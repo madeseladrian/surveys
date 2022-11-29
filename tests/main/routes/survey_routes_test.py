@@ -16,7 +16,7 @@ class TestSurveysRoutes:
         collection = mongohelper.get_collection(collection='surveys')
         collection.delete_many({})
 
-    def test_add_survey(self, clear_db):
+    def test_add_survey_on_fail(self, clear_db):
         response = self.client.post(
             '/surveys/',
             json={
@@ -30,4 +30,4 @@ class TestSurveysRoutes:
             }
         )
 
-        assert response.status_code == 204
+        assert response.status_code == 401

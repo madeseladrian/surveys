@@ -2,10 +2,8 @@ from faker import Faker
 from typing import Tuple
 from unittest.mock import patch
 
-from src.domain.features import AddAccount, Authentication
 from src.domain.params import AddAccountParams
 
-from src.presentation.contracts import Controller, Validation
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import EmailInUseError, MissingParamError
 from src.presentation.helpers import bad_request, forbidden, server_error
@@ -20,17 +18,17 @@ class TestSignUpController:
     params: AddAccountParams = mock_add_account_params()
 
     SutTypes = Tuple[
-        Controller,
-        AuthenticationSpy,
+        SignUpController,
         AddAccountSpy,
+        AuthenticationSpy,
         ValidationSpy
     ]
 
     def make_sut(self) -> SutTypes:
-        add_account_spy: AddAccount = AddAccountSpy()
-        authentication_spy: Authentication = AuthenticationSpy()
-        validation_spy: Validation = ValidationSpy()
-        sut: Controller = SignUpController(
+        add_account_spy = AddAccountSpy()
+        authentication_spy = AuthenticationSpy()
+        validation_spy = ValidationSpy()
+        sut = SignUpController(
           add_account=add_account_spy,
           authentication=authentication_spy,
           validation=validation_spy

@@ -20,7 +20,7 @@ class AuthMiddleware(Middleware):
                     access_token=access_token,
                     role=self.role
                 ):
-                    return ok({'account_id': account.get('id')})
+                    return ok({'user_id': account.get('id')})
             return forbidden(AccessDeniedError())
 
         except Exception as e:

@@ -11,7 +11,7 @@ class TestLoadAccountByToken:
 
     @patch.multiple(LoadAccountByToken, __abstractmethods__=set())
     def test_2_should_LoadAccountByToken_raise_a_NotImplementedError_if_not_implemented(self):
-        load_account_by_token: LoadAccountByToken = LoadAccountByToken()
+        load_account_by_token = LoadAccountByToken()
 
         with pytest.raises(NotImplementedError, match='Should implement method: load'):
             load_account_by_token.load(access_token='', role=None)

@@ -12,11 +12,11 @@ class TestAuthentication:
 
     @patch.multiple(Authentication, __abstractmethods__=set())
     def test_2_should_Authentication_raise_a_NotImplementedError_if_not_implemented(self):
-        params: AuthenticationParams = AuthenticationParams(
+        params = AuthenticationParams(
           email='any_email@any.com',
           password='any_password'
         )
-        authentication: Authentication = Authentication()
+        authentication = Authentication()
 
         with pytest.raises(NotImplementedError, match='Should implement method: auth'):
             authentication.auth(authentication=params)

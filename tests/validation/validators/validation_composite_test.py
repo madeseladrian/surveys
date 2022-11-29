@@ -1,5 +1,5 @@
 from faker import Faker
-from typing import List, Tuple
+from typing import Any, List, Tuple
 
 from src.presentation.contracts.validation import Validation
 from src.presentation.errors import MissingParamError
@@ -14,7 +14,7 @@ class TestValidationComposite:
 
     SutTypes = Tuple[ValidationComposite, List[Validation]]
 
-    def _validate_composite_helper(self, validation_spies: List[Validation], sut: SutTypes, validation_spy: int):
+    def _validate_composite_helper(self, validation_spies: Any, sut: Any, validation_spy: int):
         validation_spies[1].error = MissingParamError(self.field)
         error = sut.validate({self.field: self.faker.word()})
         assert error == validation_spies[validation_spy].error

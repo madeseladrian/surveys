@@ -1,6 +1,3 @@
-from typing import List
-
-from src.presentation.contracts import Validation
 from src.validation.validators import (
   ValidationComposite,
   RequiredFieldValidation,
@@ -12,7 +9,7 @@ from src.main.usecases import make_login_validation
 
 class TestMakeLoginValidation:
     def test_1_should_call_ValidationComposite_with_all_validations(self):
-        validations: List[Validation] = [
+        validations = [
           RequiredFieldValidation(field_name=field)
           for field in ['email', 'password']
         ]

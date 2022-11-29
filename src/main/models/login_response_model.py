@@ -1,5 +1,7 @@
 from pydantic import BaseModel
-from typing import Any
+
 
 class LoginResponseModel(BaseModel):
-    body: Any
+    name: str
+    access_token: str
+    token_type: str

@@ -57,7 +57,7 @@ class AccountMongoRepository(
             collection='accounts'
         ).update_one({'_id': object_id}, {"$set": {'access_token': token}})
 
-    def load_by_token(self, token: str, role: str = None) -> Optional[LoadAccountByTokenRepositoryResult]:
+    def load_by_token(self, token: str, role: Optional[str] = None) -> Optional[LoadAccountByTokenRepositoryResult]:
         account = mongohelper.get_collection(
             collection='accounts'
         ).find_one({

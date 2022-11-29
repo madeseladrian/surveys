@@ -9,12 +9,10 @@ faker = Faker()
 
 class LoadAccountByTokenRepositorySpy(LoadAccountByTokenRepository):
     token: str
-    role: str
-    result: dict = {
-        'id': faker.uuid4()
-    }
+    role: Optional[str]
+    result: Optional[LoadAccountByTokenRepositoryResult] = LoadAccountByTokenRepositoryResult(id=faker.uuid4())
 
-    def load_by_token(self, token: str, role: str = None) -> Optional[LoadAccountByTokenRepositoryResult]:
+    def load_by_token(self, token: str, role: Optional[str] = None) -> Optional[LoadAccountByTokenRepositoryResult]:
         self.token = token
         self.role = role
         return self.result
