@@ -10,6 +10,18 @@
 ```
 **/__pycache__
 .venv
+.env
+```
+
+### > Create .env example
+```
+DATABASE_HOSTNAME=localhost
+DATABASE_PORT=27017
+DATABASE_USERNAME=mades
+DATABASE_PASSWORD=123456
+SECRET_KEY = "19d25e094faa5aa2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_DAYS = 30
 ```
 
 ## Install pdm (Version control)
@@ -53,13 +65,15 @@ source venv/Scripts/activate (Bash)
 ### > Create a config mypy.ini 
 ```
 [mypy]
-exclude '.venv'
+exclude='.venv'
+ignore_missing_imports = True
+ignore_missing_imports_per_module = True
 ```
 
 ### Configuration settings.json: Use inside the environment
 ```
 "[python]": {
-    "editor.tabSize": 2
+    "editor.tabSize": 4
 },
 "mypy.runUsingActiveInterpreter": true,
 ```
