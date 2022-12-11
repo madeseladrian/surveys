@@ -28,7 +28,19 @@ class TestLoginRoutes:
         )
 
         assert response.status_code == 200
-        assert response.json().get('access_token', 'name')
+
+    def test_create_user_on_fail(self, clear_db):
+        response = self.client.post(
+            '/signup/',
+            json={
+                "name": "mades",
+                "email": "mades",
+                "password": "123456",
+                "password_confirmation": "123456"
+            }
+        )
+
+        assert response.status_code == 400
 
     def test_login_on_success(self, clear_db):
         self.client.post(
@@ -46,7 +58,9 @@ class TestLoginRoutes:
         )
 
         assert response.status_code == 200
-        assert response.json().get('access_token', 'name')
+        assert response.json().get('name')
+        assert response.json().get('access_token')
+        assert response.json().get('token_type')
 
     def test_login_on_fail(self, clear_db):
         self.client.post(

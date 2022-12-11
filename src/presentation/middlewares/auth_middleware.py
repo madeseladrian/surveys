@@ -7,7 +7,6 @@ from ..errors import AccessDeniedError
 from ..helpers import forbidden, HttpResponse, ok, server_error
 from ..params import AuthMiddlewareRequest
 
-
 @dataclass
 class AuthMiddleware(Middleware):
     load_account_by_token: LoadAccountByToken
@@ -15,12 +14,12 @@ class AuthMiddleware(Middleware):
 
     def handle(self, request: AuthMiddlewareRequest) -> HttpResponse:
         try:
-            if access_token := request.get('access_token'):
+            if access_token := request['access_token']:
                 if account := self.load_account_by_token.load(
                     access_token=access_token,
                     role=self.role
                 ):
-                    return ok({'user_id': account.get('id')})
+                    return ok({'user_id': account['id']})
             return forbidden(AccessDeniedError())
 
         except Exception as e:

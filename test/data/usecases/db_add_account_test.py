@@ -60,7 +60,7 @@ class TestDbAddAccount:
 
         assert not is_valid
 
-    @patch('tests.data.mocks.CheckAccountByEmailRepositorySpy.check_by_email')
+    @patch('test.data.mocks.CheckAccountByEmailRepositorySpy.check_by_email')
     def test_4_should_return_an_error_if_CheckAccountByEmailRepository_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         mocker.side_effect = Exception
@@ -74,7 +74,7 @@ class TestDbAddAccount:
 
         assert hasher_spy.plaintext == self.params['password']
 
-    @patch('tests.data.mocks.HasherSpy.get_password_hash')
+    @patch('test.data.mocks.HasherSpy.get_password_hash')
     def test_6_should_return_an_error_if_Hasher_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         mocker.side_effect = Exception
@@ -97,7 +97,7 @@ class TestDbAddAccount:
 
         assert not is_valid
 
-    @patch('tests.data.mocks.AddAccountRepositorySpy.add')
+    @patch('test.data.mocks.AddAccountRepositorySpy.add')
     def test_9_should_return_an_error_if_AddAccountRepository_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         mocker.side_effect = Exception

@@ -36,7 +36,7 @@ class TestAuthMiddleware:
 
     def test_2_should_return_403_if_no_x_access_token_exists_in_headers(self):
         sut, _ = self.make_sut()
-        http_response = sut.handle({})
+        http_response = sut.handle({'access_token': None})
 
         assert http_response == forbidden(AccessDeniedError())
 
@@ -55,7 +55,7 @@ class TestAuthMiddleware:
             'user_id': load_account_by_token_spy.result.get('id')
         })
 
-    @patch('tests.presentation.mocks.LoadAccountByTokenSpy.load')
+    @patch('test.presentation.mocks.LoadAccountByTokenSpy.load')
     def test_5_should_return_500_if_LoadAccountByToken_throws(self, mocker):
         sut, _ = self.make_sut()
         exception = Exception()

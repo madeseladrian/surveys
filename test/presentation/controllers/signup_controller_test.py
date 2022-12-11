@@ -9,7 +9,7 @@ from src.presentation.errors import EmailInUseError, MissingParamError
 from src.presentation.helpers import bad_request, forbidden, server_error
 
 from ...domain.mocks import mock_add_account_params
-from ..mocks import AuthenticationSpy, AddAccountSpy, ValidationSpy
+from ..mocks import AddAccountSpy, AuthenticationSpy, ValidationSpy
 
 
 class TestSignUpController:
@@ -51,7 +51,7 @@ class TestSignUpController:
         assert http_response['status_code'] == 400
         assert http_response == bad_request(validation_spy.error)
 
-    @patch('tests.presentation.mocks.ValidationSpy.validate')
+    @patch('test.presentation.mocks.ValidationSpy.validate')
     def test_3_should_return_500_if_Validation_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         exception = Exception()
@@ -76,7 +76,7 @@ class TestSignUpController:
         assert http_response['status_code'] == 403
         assert http_response == forbidden(EmailInUseError())
 
-    @patch('tests.presentation.mocks.AddAccountSpy.add')
+    @patch('test.presentation.mocks.AddAccountSpy.add')
     def test_6_should_return_500_if_AddAccount_throws(self, mocker):
         sut, _, _, _ = self.make_sut()
         exception = Exception()

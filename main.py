@@ -1,9 +1,8 @@
-from .config import create_app
 from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
 
-from ..infra.db.mongodb import mongohelper
-from .config import uri
+from src.infra.db.mongodb import mongohelper
+from src.main.config import create_app, uri
 
 
 try:

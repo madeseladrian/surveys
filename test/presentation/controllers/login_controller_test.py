@@ -51,7 +51,7 @@ class TestAuthenticationController:
         assert http_response['status_code'] == 400
         assert http_response == bad_request(validation_spy.error)
 
-    @patch('tests.presentation.mocks.ValidationSpy.validate')
+    @patch('test.presentation.mocks.ValidationSpy.validate')
     def test_3_should_return_500_if_Validation_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()
@@ -83,7 +83,7 @@ class TestAuthenticationController:
         assert http_response['status_code'] == 401
         assert http_response == unauthorized()
 
-    @patch('tests.presentation.mocks.AuthenticationSpy.auth')
+    @patch('test.presentation.mocks.AuthenticationSpy.auth')
     def test_7_should_return_500_if_AddAccount_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()

@@ -35,7 +35,7 @@ class TestDbAddSurvey:
 
         assert add_survey_repository_spy.data == self.params
 
-    @patch('tests.data.mocks.AddSurveyRepositorySpy.add')
+    @patch('test.data.mocks.AddSurveyRepositorySpy.add')
     def test_2_should_throw_if_AddSurveyRepository_throws(self, mocker):
         sut, _, = self.make_sut()
         mocker.side_effect = Exception

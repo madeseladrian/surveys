@@ -41,7 +41,7 @@ class TestDbLoadAccountByToken:
 
         assert account is None
 
-    @patch('tests.data.mocks.DecrypterSpy.decrypt')
+    @patch('test.data.mocks.DecrypterSpy.decrypt')
     def test_3_should_throw_if_Decrypter_throws(self, mocker):
         sut, _, _ = self.make_sut()
         mocker.side_effect = Exception
@@ -69,7 +69,7 @@ class TestDbLoadAccountByToken:
 
         assert account == load_account_by_token_repository_spy.result
 
-    @patch('tests.data.mocks.LoadAccountByTokenRepositorySpy.load_by_token')
+    @patch('test.data.mocks.LoadAccountByTokenRepositorySpy.load_by_token')
     def test_7_should_throw_if_LoadAccountByTokenRepository_throws(self, mocker):
         sut, _, _ = self.make_sut()
         mocker.side_effect = Exception

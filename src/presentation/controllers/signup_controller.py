@@ -31,11 +31,12 @@ class SignUpController(Controller):
                 email=request['email'],
                 password=request['password']
             )):
-                authentication_model = self.authentication.auth(AuthenticationParams(
+                authentication = self.authentication.auth(AuthenticationParams(
                     email=request['email'],
                     password=request['password']
                 ))
-                return ok(authentication_model)
+
+                return ok(authentication)
 
             else:
                 return forbidden(EmailInUseError())

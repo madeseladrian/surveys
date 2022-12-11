@@ -11,7 +11,7 @@ from ..factories.controllers import (
     login_controller_factory,
     signup_controller_factory
 )
-from ..models import LoginResponseModel, SignUpResponseModel
+from ..models import LoginResponseModel
 
 
 router = APIRouter(
@@ -22,12 +22,15 @@ router = APIRouter(
     '/signup/',
     responses=sign_up_responses,
     status_code=status.HTTP_200_OK,
-    response_model=SignUpResponseModel
+    response_model=LoginResponseModel
 )
 def create_user(request: SignUpControllerRequest):
     controller = signup_controller_factory()
     http_response = controller.handle(request)
-    return route_response_adapter(http_response)
+    adapter = route_response_adapter(http_response)
+    body = adapter.get('body')
+    return {**body, 'token_type': 'bearer'}
+
 
 @router.post(
     '/login/',
@@ -35,13 +38,12 @@ def create_user(request: SignUpControllerRequest):
     status_code=status.HTTP_200_OK,
     response_model=LoginResponseModel
 )
-def login(user_credentials: OAuth2PasswordRequestForm = Depends()):
-    request = LoginControllerRequest(
-        email=user_credentials.username,
-        password=user_credentials.password
-    )
+def login(request: OAuth2PasswordRequestForm = Depends()):
     controller = login_controller_factory()
-    http_response = controller.handle(request)
+    http_response = controller.handle(LoginControllerRequest(
+        email=request.username,
+        password=request.password
+    ))
     adapter = route_response_adapter(http_response)
     body = adapter.get('body')
-    return {**body, "token_type": "bearer"}
+    return {**body, 'token_type': 'bearer'}
