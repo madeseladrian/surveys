@@ -1,6 +1,5 @@
-from typing import List, TypedDict
+from typing import List
 from ..models import SurveyModel
 
 
-class LoadSurveysResult(TypedDict):
-    list: List[SurveyModel]
+LoadSurveysResult = List[SurveyModel]

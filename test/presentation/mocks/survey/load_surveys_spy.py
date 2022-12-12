@@ -13,6 +13,4 @@ class LoadSurveysSpy(LoadSurveys):
 
     def load(self, account_id: str) -> LoadSurveysResult:
         self.account_id = account_id
-        return LoadSurveysResult(
-            list=self.result
-        )
+        return self.result

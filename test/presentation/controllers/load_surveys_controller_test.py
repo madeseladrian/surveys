@@ -2,6 +2,7 @@ from faker import Faker
 from typing import Tuple
 
 from src.presentation.controllers import LoadSurveysController
+from src.presentation.helpers import ok
 from src.presentation.params import LoadSurveysControllerRequest
 
 from ..mocks.survey import LoadSurveysSpy
@@ -32,3 +33,9 @@ class TestAddSurveyController:
         sut.handle(request=self.params)
 
         assert load_surveys_spy.account_id == self.params['account_id']
+
+    def test_2_should_return_200_on_success(self):
+        sut, load_surveys_spy = self.make_sut()
+        http_response = sut.handle(request=self.params)
+
+        assert http_response == ok(load_surveys_spy.result)
