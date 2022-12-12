@@ -1,3 +1,4 @@
 from .add_survey_controller import AddSurveyController
+from .load_surveys_controller import LoadSurveysController
 from .login_controller import LoginController
 from .signup_controller import SignUpController

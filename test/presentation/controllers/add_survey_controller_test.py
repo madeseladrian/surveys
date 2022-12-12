@@ -10,7 +10,8 @@ from src.presentation.errors import MissingParamError
 from src.presentation.helpers import bad_request, server_error
 
 from ...domain.mocks import mock_add_survey_params
-from ..mocks import AddSurveySpy, ValidationSpy
+from ..mocks.survey import AddSurveySpy
+from ..mocks.validation import ValidationSpy
 
 
 class TestAddSurveyController:
@@ -48,7 +49,7 @@ class TestAddSurveyController:
         assert http_response['status_code'] == 400
         assert http_response == bad_request(validation_spy.error)
 
-    @patch('test.presentation.mocks.ValidationSpy.validate')
+    @patch('test.presentation.mocks.validation.ValidationSpy.validate')
     def test_3_should_return_500_if_Validation_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()
@@ -79,7 +80,7 @@ class TestAddSurveyController:
 
         assert http_response['body'] is None
 
-    @patch('test.presentation.mocks.AddSurveySpy.add')
+    @patch('test.presentation.mocks.survey.AddSurveySpy.add')
     def test_7_should_return_500_if_AddSurvey_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()

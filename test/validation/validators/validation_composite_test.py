@@ -5,7 +5,7 @@ from src.presentation.contracts.validation import Validation
 from src.presentation.errors import MissingParamError
 from src.validation.validators import ValidationComposite
 
-from ...presentation.mocks import ValidationSpy
+from ...presentation.mocks.validation import ValidationSpy
 
 
 class TestValidationComposite:

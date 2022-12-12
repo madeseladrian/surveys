@@ -16,7 +16,8 @@ from src.presentation.helpers import (
 from src.presentation.errors import MissingParamError
 
 from ...domain.mocks import mock_authentication_params
-from ..mocks import AuthenticationSpy, ValidationSpy
+from ..mocks.account import AuthenticationSpy
+from ..mocks.validation import ValidationSpy
 
 
 class TestAuthenticationController:
@@ -51,7 +52,7 @@ class TestAuthenticationController:
         assert http_response['status_code'] == 400
         assert http_response == bad_request(validation_spy.error)
 
-    @patch('test.presentation.mocks.ValidationSpy.validate')
+    @patch('test.presentation.mocks.validation.ValidationSpy.validate')
     def test_3_should_return_500_if_Validation_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()
@@ -83,7 +84,7 @@ class TestAuthenticationController:
         assert http_response['status_code'] == 401
         assert http_response == unauthorized()
 
-    @patch('test.presentation.mocks.AuthenticationSpy.auth')
+    @patch('test.presentation.mocks.account.AuthenticationSpy.auth')
     def test_7_should_return_500_if_AddAccount_throws(self, mocker):
         sut, _, _ = self.make_sut()
         exception = Exception()

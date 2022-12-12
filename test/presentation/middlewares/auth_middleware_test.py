@@ -6,7 +6,7 @@ from src.presentation.helpers import forbidden, ok, server_error
 from src.presentation.middlewares import AuthMiddleware
 from src.presentation.params import AuthMiddlewareRequest
 
-from ..mocks import LoadAccountByTokenSpy
+from ..mocks.account import LoadAccountByTokenSpy
 from ...domain.mocks import mock_auth_middleware_params
 
 
@@ -55,7 +55,7 @@ class TestAuthMiddleware:
             'user_id': load_account_by_token_spy.result.get('id')
         })
 
-    @patch('test.presentation.mocks.LoadAccountByTokenSpy.load')
+    @patch('test.presentation.mocks.account.LoadAccountByTokenSpy.load')
     def test_5_should_return_500_if_LoadAccountByToken_throws(self, mocker):
         sut, _ = self.make_sut()
         exception = Exception()
