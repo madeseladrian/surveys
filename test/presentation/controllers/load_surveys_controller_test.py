@@ -2,7 +2,7 @@ from faker import Faker
 from typing import Tuple
 
 from src.presentation.controllers import LoadSurveysController
-from src.presentation.helpers import ok
+from src.presentation.helpers import no_content, ok
 from src.presentation.params import LoadSurveysControllerRequest
 
 from ..mocks.survey import LoadSurveysSpy
@@ -39,3 +39,10 @@ class TestAddSurveyController:
         http_response = sut.handle(request=self.params)
 
         assert http_response == ok(load_surveys_spy.result)
+
+    def test_3_should_return_204_if_LoadSurveys_returns_empty(self):
+        sut, load_surveys_spy = self.make_sut()
+        load_surveys_spy.result = []
+        http_response = sut.handle(request=self.params)
+
+        assert http_response == no_content()
