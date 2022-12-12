@@ -1,8 +1,9 @@
 from faker import Faker
 from typing import Tuple
+from unittest.mock import patch
 
 from src.presentation.controllers import LoadSurveysController
-from src.presentation.helpers import no_content, ok
+from src.presentation.helpers import no_content, ok, server_error
 from src.presentation.params import LoadSurveysControllerRequest
 
 from ..mocks.survey import LoadSurveysSpy
@@ -46,3 +47,13 @@ class TestAddSurveyController:
         http_response = sut.handle(request=self.params)
 
         assert http_response == no_content()
+
+    @patch('test.presentation.mocks.survey.LoadSurveysSpy.load')
+    def test_4_should_return_500_if_LoadSurveys_throws(self, mocker):
+        sut, _ = self.make_sut()
+        exception = Exception()
+        mocker.side_effect = exception
+        http_response = sut.handle(request=self.params)
+
+        assert http_response['status_code'] == 500
+        assert http_response == server_error(error=exception)
